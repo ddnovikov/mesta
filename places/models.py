@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericRelation
 from django.core.validators import MinValueValidator, MaxValueValidator
-from django.contrib.postgres.fields import ArrayField, JSONField
+from django.contrib.postgres.fields import ArrayField
 from django.db import models
 
 from phonenumber_field.modelfields import PhoneNumberField
@@ -64,10 +64,10 @@ class FoodService(Place):
         verbose_name_plural = "Заведения общественного питания"
 
     place_type = models.IntegerField(choices=[(1, "Ресторан"),
-                                         (2, "Кафе"),
-                                         (3, "Кофейня"),
-                                         (4, "Фаст-фуд"),
-                                         (5, "Бар")])
+                                              (2, "Кафе"),
+                                              (3, "Кофейня"),
+                                              (4, "Фаст-фуд"),
+                                              (5, "Бар")])
     menu = models.FileField(upload_to=upload_location_menu)
     parking = models.NullBooleanField(verbose_name='Парковка')
     bank_cards = models.NullBooleanField(verbose_name='Приём банковских карт')
