@@ -1,0 +1,18 @@
+*.swp
+*~
+.idea/
+
+*.log
+*.pot
+*.pyc
+__pycache__/
+local_settings.py
+
+.env
+
+media/
+static/
+__ pycache __
+**/migrations/**
+!**/migrations
+!**/migrations/__init__.py
