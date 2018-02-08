@@ -1,0 +1,16 @@
+Babel==2.5.3
+Django==2.0.2
+django-appconf==1.0.2
+django-elasticsearch-dsl==0.4.4
+django-imagekit==4.0.2
+django-phonenumber-field==2.0.0
+elasticsearch==5.5.2
+elasticsearch-dsl==5.4.0
+phonenumberslite==8.8.10
+pilkit==2.0
+Pillow==5.0.0
+psycopg2==2.7.3.2
+python-dateutil==2.6.1
+pytz==2017.3
+six==1.11.0
+urllib3==1.22
