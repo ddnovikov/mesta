@@ -1,0 +1,21 @@
+.carousel-item {
+  height: 65vh;
+  min-height: 300px;
+  background: no-repeat center center scroll;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+#carousel-1 {
+    background-image: url('https://img01.rl0.ru/afisha/o/s2.afisha.ru/MediaStorage/16/5e/c48a10bd77994684bbd0a4dd5e16.jpg');
+}
+
+#carousel-2 {
+    background-image: url('https://img01.rl0.ru/afisha/o/s5.afisha.ru/MediaStorage/6b/ee/3cc46bee5bd446e0ac8ebc0cee6b.jpg');
+}
+
+#carousel-3 {
+    background-image: url('https://img01.rl0.ru/afisha/o/www.afisha.ru/uploads/images/a/68/a68a21432b924a65a30044daede61b8e.jpg');
+}

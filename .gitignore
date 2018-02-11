@@ -11,7 +11,8 @@ local_settings.py
 .env
 
 media/
-static/
+media_cdn/
+static_cdn/
 __ pycache __
 **/migrations/**
 !**/migrations

@@ -10,11 +10,6 @@ from attachments.models import Image, File
 
 
 class Place(models.Model):
-    class Meta:
-        db_table = "places"
-        verbose_name = "Место"
-        verbose_name_plural = "Места"
-
     name = models.CharField(max_length=200, verbose_name='Название')
     slug = models.SlugField(unique=True, verbose_name='Slug')
     description = models.TextField(blank=True, verbose_name='Описание')
@@ -46,6 +41,11 @@ class Place(models.Model):
     images = GenericRelation(Image, verbose_name='Прикреплённые изображения')
     files = GenericRelation(File, verbose_name='Прикреплённые файлы')
 
+    class Meta:
+        db_table = "places"
+        verbose_name = "Место"
+        verbose_name_plural = "Места"
+
     def __repr__(self):
         return f'Place(name={self.name})'
 
@@ -58,11 +58,6 @@ def upload_location_menu(instance, filename):
 
 
 class FoodService(Place):
-    class Meta:
-        db_table = "foodservices"
-        verbose_name = "Заведение общественного питания"
-        verbose_name_plural = "Заведения общественного питания"
-
     place_type = models.IntegerField(choices=[(1, "Ресторан"),
                                               (2, "Кафе"),
                                               (3, "Кофейня"),
@@ -75,6 +70,11 @@ class FoodService(Place):
     banquets = models.NullBooleanField(verbose_name='Банкеты')
     delivery = models.NullBooleanField(verbose_name='Доставка')
     catering = models.NullBooleanField(verbose_name='Кейтеринг')
+
+    class Meta:
+        db_table = "foodservices"
+        verbose_name = "Заведение общественного питания"
+        verbose_name_plural = "Заведения общественного питания"
 
     def __repr__(self):
         return f'FoodService(name={self.name}, type_={self.type_})'
