@@ -9,15 +9,17 @@ def places_home(request):
 
     context = {
         'all_services': all_services,
+        'search_query': search_query,
     }
 
     return render(request, 'home.html', context)
 
-# def place_create(request):
-#     pass
-#
-#
+
 # def place_detail(request):
+#     pass
+
+
+# def place_create(request):
 #     pass
 #
 #

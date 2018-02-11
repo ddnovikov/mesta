@@ -77,7 +77,7 @@ class FoodService(Place):
         verbose_name_plural = "Заведения общественного питания"
 
     def __repr__(self):
-        return f'FoodService(name={self.name}, type_={self.type_})'
+        return f'FoodService(name={self.name}, type_={self.place_type})'
 
     def __str__(self):
         return self.name
