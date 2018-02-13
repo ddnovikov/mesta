@@ -1,9 +1,13 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.contrib.contenttypes.forms import generic_inlineformset_factory
+# from django.forms import modelformset_factory
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponseRedirect, Http404
 
 from places.models import Place, FoodService
 from places.forms import PlaceForm
+from attachments.models import Image
+from attachments.forms import ImageForm
 
 
 def places_home(request):
@@ -18,21 +22,29 @@ def places_home(request):
     return render(request, 'home.html', context)
 
 
+@login_required
 def place_create(request):
-    if not request.user.is_staff or not request.user.is_superuser:
-        raise Http404
+    ImageFormSet = generic_inlineformset_factory(Image, form=ImageForm, min_num=0)
 
-    form = PlaceForm(request.POST or None)
+    place_form = PlaceForm(request.POST or None)
+    image_formset = ImageFormSet(request.POST or None, request.FILES or None)
 
-    if form.is_valid():
-        instance = form.save(commit=False)
-        instance.owner = request.user
-        instance.save()
+    if place_form.is_valid() and image_formset.is_valid():
+        place_instance = place_form.save(commit=False)
+        place_instance.owner = request.user
+        place_instance.save()
+
+        for form in image_formset.cleaned_data:
+            image = form['image']
+            image_instance = Image(image=image, content_object=place_instance)
+            image_instance.save()
+
         messages.success(request, 'Место успешно создано.')
-        return redirect(instance)
+        return redirect(place_instance)
 
     context = {
-        'place_form': form,
+        'place_form': place_form,
+        'image_formset': image_formset,
         'title': 'Создать место',
         'submit_value': 'Создать место',
     }
