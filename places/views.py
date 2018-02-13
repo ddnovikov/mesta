@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect, Http404
 
 from places.models import FoodService
@@ -26,10 +26,10 @@ def place_create(request):
 
     if form.is_valid():
         instance = form.save(commit=False)
-        instance.user = request.user
+        instance.owner = request.user
         instance.save()
         messages.success(request, 'Место успешно создано.')
-        return HttpResponseRedirect(instance.get_absolute_url())
+        return redirect('places:home')
 
     context = {
         'place_form': form,
