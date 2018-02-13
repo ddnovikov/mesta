@@ -3,6 +3,7 @@ from django.db.models.signals import pre_save
 from django.dispatch import receiver
 
 from .place import Place
+
 from shared_tools.slugs import create_slug
 
 
