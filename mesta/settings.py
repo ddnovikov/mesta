@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'places',
     'posts',
 
+    'crispy_forms',
     'imagekit',
     'phonenumber_field',
 ]
