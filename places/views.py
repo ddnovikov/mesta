@@ -17,10 +17,6 @@ def places_home(request):
 
 # def place_detail(request):
 #     pass
-
-
-# def place_create(request):
-#     pass
 #
 #
 # def place_update(request):

@@ -1,6 +1,9 @@
 from django.db import models
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
 
 from .place import Place
+from shared_tools.slugs import create_slug
 
 
 def upload_location_menu(instance, filename):
@@ -31,3 +34,9 @@ class FoodService(Place):
 
     def __str__(self):
         return self.name
+
+
+@receiver(pre_save, sender=FoodService)
+def pre_save_place_reciever(sender, instance, **kwargs):
+    if not instance.slug:
+        instance.slug = create_slug(instance, 'name')

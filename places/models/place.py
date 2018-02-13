@@ -1,20 +1,22 @@
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericRelation
-from django.core.validators import MinValueValidator, MaxValueValidator
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
 
 from phonenumber_field.modelfields import PhoneNumberField
 
 from attachments.models import Image, File
+from shared_tools.slugs import create_slug
 
 
 class Place(models.Model):
     name = models.CharField(max_length=200, verbose_name='Название')
-    slug = models.SlugField(unique=True, verbose_name='Slug')
+    slug = models.SlugField(blank=True, unique=True, verbose_name='Slug')
     description = models.TextField(blank=True, verbose_name='Описание')
     draft = models.BooleanField(default=False, verbose_name='Черновик / Видимость объекта')
-    rating = models.FloatField(blank=True, validators=[MinValueValidator(0), MaxValueValidator(10)], verbose_name='Рейтинг')
+    rating = models.FloatField(blank=True, null=True, verbose_name='Рейтинг')
     tags = ArrayField(models.CharField(max_length=200), blank=True, verbose_name='Теги')
 
     country = models.CharField(max_length=40, blank=True, verbose_name='Страна')
@@ -51,3 +53,9 @@ class Place(models.Model):
 
     def __str__(self):
         return self.name
+
+
+@receiver(pre_save, sender=Place)
+def pre_save_place_reciever(sender, instance, **kwargs):
+    if not instance.slug:
+        instance.slug = create_slug(instance, 'name')
