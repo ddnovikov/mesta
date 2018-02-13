@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block head_title %}
+  {{ instance }} | {{ block.super }}
+{% endblock head_title %}
+
+{% block content %}
+  <div class="container">
+    <div class="col">
+      <h1>
+        {{ instance }}<br/>
+        <small style="font-size: 20px">
+          {{ instance.timestamp }}
+          {% if instance.draft %}
+            <span style='color:red;'>Черновик</span>
+          {% endif %}
+        </small>
+      </h1>
+
+      <hr/>
+
+      <div class="post-detail-item">
+        {{ instance.description }}
+      </div>
+
+      <p>Владелец заведения: {{ instance.owner.get_full_name }}</p>
+
+    </div>
+{% endblock content %}

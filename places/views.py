@@ -1,8 +1,8 @@
 from django.contrib import messages
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect, Http404
 
-from places.models import FoodService
+from places.models import Place, FoodService
 from places.forms import PlaceForm
 
 
@@ -29,7 +29,7 @@ def place_create(request):
         instance.owner = request.user
         instance.save()
         messages.success(request, 'Место успешно создано.')
-        return redirect('places:home')
+        return redirect(instance)
 
     context = {
         'place_form': form,
@@ -40,10 +40,17 @@ def place_create(request):
     return render(request, 'place_form.html', context)
 
 
-# def place_detail(request):
-#     pass
-#
-#
+def place_detail(request, slug=None):
+    instance = get_object_or_404(Place, slug=slug)
+
+    context = {
+        'instance': instance,
+    }
+
+    return render(request, 'place_detail.html', context)
+
+
+
 # def place_update(request):
 #     pass
 #

@@ -23,7 +23,7 @@ from places import urls as places_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include(places_urls, namespace='places')),
+    path('places/', include(places_urls, namespace='places')),
 ]
 
 if settings.DEBUG:
