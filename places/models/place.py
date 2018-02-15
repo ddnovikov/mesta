@@ -58,6 +58,12 @@ class Place(models.Model):
     def get_absolute_url(self):
         return reverse('places:detail', kwargs={'slug': self.slug})
 
+    def tags_to_string(self):
+        return ' '.join(self.tags)
+
+    def subway_to_string(self):
+        return ' '.join(self.subway)
+
 
 @receiver(pre_save, sender=Place)
 def pre_save_place_reciever(sender, instance, **kwargs):
