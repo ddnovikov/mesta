@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'posts',
 
     'crispy_forms',
+    'django_elasticsearch_dsl',
     'imagekit',
     'phonenumber_field',
 ]
@@ -94,6 +95,13 @@ DATABASES = {
     }
 }
 
+# Elasticsearch
+
+ELASTICSEARCH_DSL = {
+    'default': {
+        'hosts': 'localhost:9200'
+    },
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators

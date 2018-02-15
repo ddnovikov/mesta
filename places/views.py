@@ -1,7 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes.forms import generic_inlineformset_factory
-# from django.forms import modelformset_factory
 from django.shortcuts import render, redirect, get_object_or_404
 
 from places.models import Place, FoodService
@@ -54,13 +53,14 @@ def place_create(request):
 
 def place_detail(request, slug=None):
     instance = get_object_or_404(Place, slug=slug)
+    images = instance.images.all()
 
     context = {
         'instance': instance,
+        'images': images,
     }
 
     return render(request, 'place_detail.html', context)
-
 
 
 # def place_update(request):

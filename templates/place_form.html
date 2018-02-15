@@ -11,14 +11,6 @@
           {% csrf_token %}
           {{ place_form | crispy }}
 
-{#          {% for hidden in place_form.hidden_fields %}#}
-{#            {{ hidden }}#}
-{#          {% endfor %}#}
-{##}
-{#          {% for field in place_form %}#}
-{#              {{ field }} <br />#}
-{#          {% endfor %}#}
-
           {{ image_formset.management_form }}
           {% for form in image_formset %}
               {{ form | crispy }}
