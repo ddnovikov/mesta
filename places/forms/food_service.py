@@ -5,7 +5,7 @@ from places.forms import PlaceForm
 class FoodServiceForm(PlaceForm):
     class Meta(PlaceForm.Meta):
         model = FoodService
-        fields = super(FoodServiceForm.fields).fields + [
+        fields = PlaceForm.Meta.fields + [
             'place_type',
             'menu',
             'parking',
