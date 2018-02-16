@@ -3,12 +3,12 @@ from django.contrib.contenttypes.models import ContentType
 from django.db import models
 
 
-def upload_location_file(instance, filename):
+def file_upload_location(instance, filename):
     return f'files/{instance.id}_{filename}'
 
 
 class File(models.Model):
-    file = models.FileField(upload_to=upload_location_file)
+    file = models.FileField(upload_to=file_upload_location)
 
     name = models.CharField(max_length=200, verbose_name='Название', blank=True)
     description = models.TextField(verbose_name='Описание', blank=True)

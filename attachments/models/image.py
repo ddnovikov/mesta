@@ -3,12 +3,12 @@ from django.contrib.contenttypes.models import ContentType
 from django.db import models
 
 
-def upload_location_image(instance, filename):
+def image_upload_location(instance, filename):
     return f'images/{instance.id}_{filename}'
 
 
 class Image(models.Model):
-    image = models.ImageField(upload_to=upload_location_image,
+    image = models.ImageField(upload_to=image_upload_location,
                               height_field='height_field',
                               width_field='width_field')
     height_field = models.IntegerField(default=0)

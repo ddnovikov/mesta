@@ -11,7 +11,7 @@ from places.models import Place
 from attachments.models import Image, File
 
 
-def upload_location(instance, filename):
+def upload_location_post(instance, filename):
     return f'{instance.id}/{filename}'
 
 
@@ -21,7 +21,7 @@ class Post(models.Model):
     content = models.TextField(blank=True, null=True, verbose_name='Текст поста')
     tags = ArrayField(models.CharField(max_length=200), blank=True, verbose_name='Теги')
 
-    main_image = models.ImageField(upload_to=upload_location,
+    main_image = models.ImageField(upload_to=upload_location_post,
                                    null=True,
                                    blank=True,
                                    height_field='height_field',
