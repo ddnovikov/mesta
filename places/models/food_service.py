@@ -16,8 +16,10 @@ class FoodService(Place):
                                               (2, "Кафе"),
                                               (3, "Кофейня"),
                                               (4, "Фаст-фуд"),
-                                              (5, "Бар")])
-    menu = models.FileField(upload_to=upload_location_menu)
+                                              (5, "Бар")],
+                                     blank=True,
+                                     null=True)
+    menu = models.FileField(upload_to=upload_location_menu, blank=True, null=True)
     parking = models.NullBooleanField(verbose_name='Парковка')
     bank_cards = models.NullBooleanField(verbose_name='Приём банковских карт')
     wi_fi = models.NullBooleanField(verbose_name='Вай-фай')
