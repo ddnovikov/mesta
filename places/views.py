@@ -34,22 +34,31 @@ def place_create(request, place_base_type='place'):
         return Http404('Page not found.')
 
     if request.method == 'POST':
-        # ImageFormSet = generic_inlineformset_factory(Image, form=ImageForm, min_num=0)
         form = Form(request.POST or None)
-        image_form = ImageForm(request.POST or None, request.FILES or None)
-        # image_formset = ImageFormSet(request.POST or None, request.FILES or None)
 
-        if form.is_valid() and image_form.is_valid():
-            place_instance = form.save(commit=False)
-            place_instance.owner = request.user
-            place_instance.save()
+        if place_base_type == 'place':
+            if form.is_valid():
+                place_instance = form.save(commit=False)
+                place_instance.owner = request.user
+                place_instance.save()
 
-            image = image_form['image']
-            image_instance = Image(image=image, content_object=place_instance)
-            image_instance.save()
+                messages.success(request, 'Место успешно создано.')
+                return redirect(place_instance)
 
-            messages.success(request, 'Место успешно создано.')
-            return redirect(place_instance)
+        elif place_base_type == 'food-service':
+            image_form = ImageForm(request.POST or None, request.FILES or None)
+
+            if form.is_valid() and image_form.is_valid():
+                place_instance = form.save(commit=False)
+                place_instance.owner = request.user
+                place_instance.save()
+
+                image = image_form['image']
+                image_instance = Image(image=image, content_object=place_instance)
+                image_instance.save()
+
+                messages.success(request, 'Место успешно создано.')
+                return redirect(place_instance)
 
     else:
         form = Form(request.POST or None)
@@ -83,3 +92,6 @@ def place_detail(request, slug=None):
 #
 # def place_delete(request):
 #     pass
+#
+# ImageFormSet = generic_inlineformset_factory(Image, form=ImageForm, min_num=0)
+# image_formset = ImageFormSet(request.POST or None, request.FILES or None)

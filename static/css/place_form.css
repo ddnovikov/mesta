@@ -2,10 +2,18 @@ input {
     width: 100%;
 }
 
+label, legend {
+    font-weight: bold;
+}
+
 .row {
     margin-top: 65px;
 }
 
-label, legend {
-    font-weight: bold;
+#place_submit {
+    margin: 30px;
 }
+
+/*#place_form {*/
+    /*margin-bottom: 30px;*/
+/*}*/
