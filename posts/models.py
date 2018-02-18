@@ -1,14 +1,14 @@
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericRelation
 from django.contrib.postgres.fields import ArrayField
-from django.urls import reverse
 from django.db import models
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
+from django.urls import reverse
 
-from shared_tools.slugs import create_slug
-from places.models import Place
 from attachments.models import Image, File
+from places.models import Place
+from shared_tools.misc.slugs import create_slug
 
 
 def post_upload_location(instance, filename):

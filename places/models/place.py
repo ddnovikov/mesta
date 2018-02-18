@@ -5,11 +5,10 @@ from django.db import models
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from django.urls import reverse
-
 from phonenumber_field.modelfields import PhoneNumberField
 
 from attachments.models import Image, File
-from shared_tools.slugs import create_slug
+from shared_tools.misc.slugs import create_slug
 
 
 class Place(models.Model):

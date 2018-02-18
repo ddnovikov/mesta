@@ -33,26 +33,31 @@ def place_create(request, place_base_type='place'):
     if Form is None:
         return Http404('Page not found.')
 
-    ImageFormSet = generic_inlineformset_factory(Image, form=ImageForm, min_num=0)
-    form = Form(request.POST or None)
-    image_formset = ImageFormSet(request.POST or None, request.FILES or None)
+    if request.method == 'POST':
+        # ImageFormSet = generic_inlineformset_factory(Image, form=ImageForm, min_num=0)
+        form = Form(request.POST or None)
+        image_form = ImageForm(request.POST or None, request.FILES or None)
+        # image_formset = ImageFormSet(request.POST or None, request.FILES or None)
 
-    if form.is_valid() and image_formset.is_valid():
-        place_instance = form.save(commit=False)
-        place_instance.owner = request.user
-        place_instance.save()
+        if form.is_valid() and image_form.is_valid():
+            place_instance = form.save(commit=False)
+            place_instance.owner = request.user
+            place_instance.save()
 
-        for image_form in image_formset.cleaned_data:
             image = image_form['image']
             image_instance = Image(image=image, content_object=place_instance)
             image_instance.save()
 
-        messages.success(request, 'Место успешно создано.')
-        return redirect(place_instance)
+            messages.success(request, 'Место успешно создано.')
+            return redirect(place_instance)
+
+    else:
+        form = Form(request.POST or None)
+        image_form = ImageForm(request.POST or None, request.FILES or None)
 
     context = {
         'place_form': form,
-        'image_formset': image_formset,
+        'null_bool_values': ['Да', 'Нет', 'Неизвестно'],
         'title': 'Создать место',
         'submit_value': 'Создать место',
     }
