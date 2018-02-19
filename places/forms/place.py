@@ -4,6 +4,7 @@ from places.models import Place
 
 
 class PlaceForm(forms.ModelForm):
+    description = forms.CharField(label='Описание', widget=forms.Textarea)
     class Meta:
         model = Place
         fields = [
