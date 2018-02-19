@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.contenttypes.forms import generic_inlineformset_factory
+# from django.contrib.contenttypes.forms import generic_inlineformset_factory
 from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
 
@@ -86,10 +86,16 @@ def place_detail(request, slug=None):
     return render(request, 'place_detail.html', context)
 
 
-# def place_update(request):
-#     pass
-#
-#
+def place_list(request):
+    all_fss = FoodService.objects.all()
+
+    context = {
+        'all_fss': all_fss,
+    }
+
+    return render(request, 'place_list.html', context)
+
+
 # def place_delete(request):
 #     pass
 #

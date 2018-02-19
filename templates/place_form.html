@@ -8,72 +8,72 @@
 
 {% block content %}
   <div class="container">
-    <div id="place_form_main">
-    <div class="row">
-      <div class="col-md-8 offset-md-2">
-        <h1>{{ title }}</h1>
-        <hr/>
+    <div id="place-form-main">
+      <div class="row">
+        <div class="col-md-8 offset-md-2">
+          <h1>{{ title }}</h1>
+          <hr/>
 
-        <form id='place_form' method='POST' action='' enctype="multipart/form-data">
-          {% csrf_token %}
-          {% for field in place_form %}
-            {% if field|field_type == 'std' or field|field_type == 'txt' %}
-              <div class="form-group row">
-                <label for="{{ field.id_for_label }}" class="col-sm-3 col-form-label">{{ field.label }}</label>
-                <div class="col-sm-9">
-                  {% if field|field_type == 'std' %}
-                    <input id="{{ field.id_for_label }}"
-                           class="form-control"
-                           type="text"
-                           name="{{ field.html_name }}"
-                           value="{{ field.value | default:'' }}">
-                  {% elif field|field_type == 'txt' %}
-                    <textarea id="{{ field.id_for_label }}"
-                              class="form-control"
-                              rows="8"
-                              name="{{ field.html_name }}">
-                    {{ field.value | default:'' }}
-                    </textarea>
-                  {% endif %}
-                </div>
-                {{ field.errors }}
-              </div>
-
-            {% elif field|field_type == 'null-bool' %}
-              <fieldset class="form-group">
-                <div class="row">
-                  <legend class="col-form-label col-sm-3 pt-0">{{ field.label }}</legend>
-                  <div class="col-sm-5">
-                    {% for value in null_bool_values %}
-                      <div class="custom-control custom-radio">
-                        <input class="custom-control-input"
-                               type="radio"
-                               name="{{ field.html_name }}"
-                               id="{{ field.html_name | slugify_field:value }}"
-                               value="{{ field.value }}">
-                        <label class="custom-control-label" for="{{ field.html_name | slugify_field:value }}">
-                          {{ value }}
-                        </label>
-                      </div>
-                    {% endfor %}
-                    {{ field.errors }}
+          <form id='place_form' method='POST' action='' enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for field in place_form %}
+              {% if field|field_type == 'std' or field|field_type == 'txt' %}
+                <div class="form-group row">
+                  <label for="{{ field.id_for_label }}" class="col-sm-3 col-form-label">{{ field.label }}</label>
+                  <div class="col-sm-9">
+                    {% if field|field_type == 'std' %}
+                      <input id="{{ field.id_for_label }}"
+                             class="form-control"
+                             type="text"
+                             name="{{ field.html_name }}"
+                             value="{{ field.value | default:'' }}">
+                    {% elif field|field_type == 'txt' %}
+                      <textarea id="{{ field.id_for_label }}"
+                                class="form-control"
+                                rows="8"
+                                name="{{ field.html_name }}">
+                      {{ field.value | default:'' }}
+                      </textarea>
+                    {% endif %}
                   </div>
+                  {{ field.errors }}
                 </div>
-              </fieldset>
-            {% elif field|field_type == 'bool' %}
-              <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="{{ field.html_name | slugify_field:value }}">
-                <label class="custom-control-label" for="{{ field.html_name | slugify_field:value }}">{{ field.label }}</label>
-              </div>
-            {% endif %}
-          {% endfor %}
-          <div id="place_submit" class="text-center">
-            <button type="submit" class="btn btn-primary btn-lg">{{ submit_value }}</button>
-          </div>
-        </form>
+
+              {% elif field|field_type == 'null-bool' %}
+                <fieldset class="form-group">
+                  <div class="row">
+                    <legend class="col-form-label col-sm-3 pt-0">{{ field.label }}</legend>
+                    <div class="col-sm-5">
+                      {% for value in null_bool_values %}
+                        <div class="custom-control custom-radio">
+                          <input class="custom-control-input"
+                                 type="radio"
+                                 name="{{ field.html_name }}"
+                                 id="{{ field.html_name | slugify_field:value }}"
+                                 value="{{ field.value }}">
+                          <label class="custom-control-label" for="{{ field.html_name | slugify_field:value }}">
+                            {{ value }}
+                          </label>
+                        </div>
+                      {% endfor %}
+                      {{ field.errors }}
+                    </div>
+                  </div>
+                </fieldset>
+              {% elif field|field_type == 'bool' %}
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" id="{{ field.html_name | slugify_field:value }}">
+                  <label class="custom-control-label" for="{{ field.html_name | slugify_field:value }}">{{ field.label }}</label>
+                </div>
+              {% endif %}
+            {% endfor %}
+            <div id="place_submit" class="text-center">
+              <button type="submit" class="btn btn-primary btn-lg">{{ submit_value }}</button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
-  </div>
-  </div>
   </div>
 
 {% endblock content %}
