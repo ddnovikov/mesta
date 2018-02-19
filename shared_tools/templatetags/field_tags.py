@@ -16,7 +16,9 @@ def field_type(field):
     elif isinstance(field_name, fields.NullBooleanField):
         return 'null-bool'
 
+    elif isinstance(field_name, fields.TextInput):
+        return 'txt'
 
-@register.filter(name='slugify')
-def slugify(html_name, arg):
+@register.filter(name='slugify_field')
+def slugify_field(html_name, arg):
     return f'{create_slug(html_name)}-{arg}'

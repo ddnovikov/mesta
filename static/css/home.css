@@ -1,3 +1,61 @@
+body {
+    font-family: 'Rubik', sans-serif;
+}
+
+h1 {
+    font-weight: bold;
+}
+
+nav, footer {
+    background-color: #1f1f31;/*#2E2E45;*/
+}
+
+.btn-primary {
+    background-color: #3bcde2;
+    border-color: #3bcde2;
+}
+
+.btn-primary:hover {
+    background: #38b2dc;
+    border-color: #2e99be;
+}
+
+.btn-primary:focus, .btn-primary.focus {
+  box-shadow: #1a78b9;
+}
+
+/*.btn-primary.disabled, .btn-primary:disabled {*/
+  /*color: #fff;*/
+  /*background-color: #007bff;*/
+  /*border-color: #007bff;*/
+/*}*/
+
+.btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active,
+.show > .btn-primary.dropdown-toggle {
+    background: #2986a4;
+    border-color: #20657e;
+}
+
+.btn-success {
+    background-color: #655FFF;
+    border-color: #655FFF;
+}
+
+.btn-success:hover {
+    background: #4844b3;
+    border-color: #37338b;
+}
+
+.btn-success:focus, .btn-success.focus {
+  box-shadow: #262078;
+}
+
+.btn-success:not(:disabled):not(.disabled):active, .btn-success:not(:disabled):not(.disabled).active,
+.show > .btn-success.dropdown-toggle {
+    background: #4844b3;
+    border-color: #37338b;
+}
+
 .carousel-item {
   height: 65vh;
   min-height: 300px;
@@ -20,6 +78,7 @@
     background-image: url('https://img01.rl0.ru/afisha/o/www.afisha.ru/uploads/images/a/68/a68a21432b924a65a30044daede61b8e.jpg');
 }
 
-/*input {*/
-    /*width: 100%;*/
-/*}*/
+#mesta-brand {
+    font-family: 'Rubik Mono One', sans-serif;
+    font-size: 30px;
+}

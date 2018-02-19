@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load field_type %}
+{% load field_tags %}
 
 {% block head_extra %}
   <link rel="stylesheet" href="{% static 'css/place_form.css' %}">
@@ -8,6 +8,7 @@
 
 {% block content %}
   <div class="container">
+    <div id="place_form_main">
     <div class="row">
       <div class="col-md-8 offset-md-2">
         <h1>{{ title }}</h1>
@@ -16,15 +17,24 @@
         <form id='place_form' method='POST' action='' enctype="multipart/form-data">
           {% csrf_token %}
           {% for field in place_form %}
-            {% if field|field_type == 'std' %}
+            {% if field|field_type == 'std' or field|field_type == 'txt' %}
               <div class="form-group row">
                 <label for="{{ field.id_for_label }}" class="col-sm-3 col-form-label">{{ field.label }}</label>
                 <div class="col-sm-9">
-                  <input id="{{ field.id_for_label }}"
-                         class="form-control"
-                         type="text"
-                         name="{{ field.html_name }}"
-                         value="{{ field.value | default:'' }}">
+                  {% if field|field_type == 'std' %}
+                    <input id="{{ field.id_for_label }}"
+                           class="form-control"
+                           type="text"
+                           name="{{ field.html_name }}"
+                           value="{{ field.value | default:'' }}">
+                  {% elif field|field_type == 'txt' %}
+                    <textarea id="{{ field.id_for_label }}"
+                              class="form-control"
+                              rows="5"
+                              name="{{ field.html_name }}">
+                    {{ field.value | default:'' }}
+                    </textarea>
+                  {% endif %}
                 </div>
                 {{ field.errors }}
               </div>
@@ -39,9 +49,9 @@
                         <input class="form-check-input"
                                type="radio"
                                name="{{ field.html_name }}"
-                               id="{{ field.html_name | slugify:value }}"
+                               id="{{ field.html_name | slugify_field:value }}"
                                value="{{ field.value }}">
-                        <label class="form-check-label" for="{{ field.html_name | slugify:value }}">
+                        <label class="form-check-label" for="{{ field.html_name | slugify_field:value }}">
                           {{ value }}
                         </label>
                       </div>
@@ -50,6 +60,7 @@
                   </div>
                 </div>
               </fieldset>
+
             {% endif %}
           {% endfor %}
           <div id="place_submit" class="text-center">
@@ -57,6 +68,8 @@
           </div>
         </form>
     </div>
+  </div>
+  </div>
   </div>
 
 {% endblock content %}
