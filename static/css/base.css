@@ -1,5 +1,13 @@
+/*html {*/
+    /*margin: 0;*/
+    /*padding: 0;*/
+    /*height: 100%;*/
+/*}*/
+
 body {
     font-family: 'Rubik', sans-serif;
+        margin: 0;
+    /*padding: 0;*/
 }
 
 h1 {
@@ -78,6 +86,16 @@ nav, footer {
     left: 0;
     background-color: rgba(0, 0, 0, 0.7);
     opacity: 0.7;
+}
+
+.footer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100px; /* Set the fixed height of the footer here */
+    line-height: 100px; /* Vertically center the text there */
 }
 
 .image-pos {
