@@ -1,29 +1,31 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block head_title %}
   {{ instance }} | {{ block.super }}
 {% endblock head_title %}
 
+{% block head_extra %}
+  <link rel="stylesheet" href="{% static 'css/place_detail.css' %}">
+{% endblock %}
+
 {% block content %}
   <div class="container">
-    <div class="col">
-      <h1>
-        {{ instance }}<br/>
-        <small style="font-size: 20px">
-          {{ instance.timestamp }}
-          {% if instance.draft %}
-            <span style='color:red;'>Черновик</span>
-          {% endif %}
-        </small>
-      </h1>
-
-      <hr/>
-
-      <div class="post-detail-item">
+    <div id="place-detail-main">
+      <div class="col">
+        <h1>
+          {{ instance.name }}<br/>
+          <small style="font-size: 20px">
+            {% if instance.draft %}
+              <span style='color:red;'>Черновик</span>
+            {% endif %}
+          </small>
+        </h1>
+        <hr/>
+        <img src="{{ image.url }}" class="img-fluid rounded">
         {{ instance.description }}
+{#        <p>Владелец заведения: {{ instance.owner.get_full_name }}</p>#}
       </div>
-
-      <p>Владелец заведения: {{ instance.owner.get_full_name }}</p>
-
     </div>
+  </div>
 {% endblock content %}

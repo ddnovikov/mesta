@@ -44,9 +44,8 @@ def place_create(request, place_base_type='place'):
 
         if image_form.is_valid() and request.FILES:
             image = image_form['image']
-            if image is not None:
-                image_instance = Image(image=image, content_object=place_instance)
-                image_instance.save()
+            image_instance = Image(image=image, content_object=place_instance)
+            image_instance.save()
 
         messages.success(request, 'Место успешно создано.')
         return redirect(place_instance)
@@ -68,11 +67,11 @@ def place_create(request, place_base_type='place'):
 
 def place_detail(request, slug=None):
     instance = get_object_or_404(Place, slug=slug)
-    images = instance.images.all()
+    image = instance.images.all().first()
 
     context = {
         'instance': instance,
-        'images': images,
+        'image': image,
     }
 
     return render(request, 'place_detail.html', context)
