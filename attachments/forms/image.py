@@ -4,7 +4,7 @@ from attachments.models import Image
 
 
 class ImageForm(forms.ModelForm):
-    image = forms.ImageField()
+    image = forms.ImageField(required=False)
 
     class Meta:
         model = Image

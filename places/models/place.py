@@ -15,13 +15,13 @@ class Place(models.Model):
     name = models.CharField(max_length=200, verbose_name='Название')
     slug = models.SlugField(blank=True, unique=True, verbose_name='Slug')
     description = models.TextField(blank=True, verbose_name='Описание')
-    draft = models.BooleanField(default=False, verbose_name='Черновик / Видимость объекта')
+    draft = models.BooleanField(default=True, verbose_name='Черновик / Видимость объекта')
     rating = models.FloatField(blank=True, null=True, verbose_name='Рейтинг')
     tags = ArrayField(models.CharField(max_length=200), blank=True, verbose_name='Теги')
 
-    country = models.CharField(max_length=40, blank=True, verbose_name='Страна')
-    region = models.CharField(max_length=200, blank=True, verbose_name='Регион')
-    city = models.CharField(max_length=200, blank=True, verbose_name='Город')
+    country = models.CharField(max_length=40, verbose_name='Страна')
+    region = models.CharField(max_length=200, verbose_name='Регион')
+    city = models.CharField(max_length=200, verbose_name='Город')
     zip_code = models.CharField(max_length=10, blank=True, verbose_name='Почтовый индекс')
     street = models.CharField(max_length=200, blank=True, verbose_name='Улица')
     building_number = models.CharField(max_length=20, blank=True, verbose_name='Номер здания')
@@ -31,7 +31,7 @@ class Place(models.Model):
 
     subway = ArrayField(models.CharField(max_length=200), blank=True, verbose_name='Ближайшие станции метро')
     site = models.URLField(blank=True, verbose_name='Сайт')
-    telephone = PhoneNumberField(blank=True, verbose_name='Телефон')
+    telephone = PhoneNumberField(verbose_name='Телефон')
 
     owner = models.ForeignKey(settings.AUTH_USER_MODEL,
                               on_delete=models.CASCADE,

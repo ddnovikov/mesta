@@ -7,22 +7,26 @@
 
 {% block content %}
   <div class="container">
-    <div class="place-list-main">
-    <div class="row">
-      <div class="col-md-10 offset-md-1">
+    <div id="place-list-main">
+{#    <div class="row">#}
+{#      <div class="col-md-10 offset-md-1">#}
         <h1>{{ title }}</h1>
         <hr/>
         {% for place in all_fss %}
-          <div class="card mb-3">
-            <img class="card-img-top" src="https://img02.rl0.ru/afisha/o/s1.afisha.ru/MediaStorage/38/21/52302ca88b4145a8b24460e42138.jpg">
+          {% cycle '<div class="row"><div class="card-deck">' '' '' %}
+          <div class="card">
+            <img class="card-img-top img-fluid img-r" src="https://img01.rl0.ru/afisha/o/s1.afisha.ru/MediaStorage/e9/a0/36c182260f684991a29e6810a0e9.jpg">
             <div class="card-body">
               <a href="{{ place.get_absolute_url }}" class="h4 card-title">{{ place.name }}</a>
-              <p class="card-text">{{ place.description | truncatechars:100 }}</p>
             </div>
           </div>
+          {% cycle '' '' '</div></div><br/>' %}
+          {% if forloop.last and not forloop.counter|divisibleby:3 %}
+            </div></div>
+          {% endif %}
         {% endfor %}
-      </div>
-    </div>
+{#      </div>#}
+{#    </div>#}
     </div>
   </div>
 {% endblock %}

@@ -35,30 +35,21 @@ def place_create(request, place_base_type='place'):
 
     if request.method == 'POST':
         form = Form(request.POST or None)
+        image_form = ImageForm(request.POST or None, request.FILES or None)
 
-        if place_base_type == 'place':
-            if form.is_valid():
-                place_instance = form.save(commit=False)
-                place_instance.owner = request.user
-                place_instance.save()
+        if form.is_valid():
+            place_instance = form.save(commit=False)
+            place_instance.owner = request.user
+            place_instance.save()
 
-                messages.success(request, 'Место успешно создано.')
-                return redirect(place_instance)
-
-        elif place_base_type == 'food-service':
-            image_form = ImageForm(request.POST or None, request.FILES or None)
-
-            if form.is_valid() and image_form.is_valid():
-                place_instance = form.save(commit=False)
-                place_instance.owner = request.user
-                place_instance.save()
-
-                image = image_form['image']
+        if image_form.is_valid() and request.FILES:
+            image = image_form['image']
+            if image is not None:
                 image_instance = Image(image=image, content_object=place_instance)
                 image_instance.save()
 
-                messages.success(request, 'Место успешно создано.')
-                return redirect(place_instance)
+        messages.success(request, 'Место успешно создано.')
+        return redirect(place_instance)
 
     else:
         form = Form(request.POST or None)
@@ -66,6 +57,7 @@ def place_create(request, place_base_type='place'):
 
     context = {
         'place_form': form,
+        'image_form': image_form,
         'null_bool_values': ['Да', 'Нет', 'Неизвестно'],
         'title': 'Создать место',
         'submit_value': 'Создать место',
@@ -91,6 +83,7 @@ def place_list(request):
 
     context = {
         'all_fss': all_fss,
+        'title': 'Все заведения'
     }
 
     return render(request, 'place_list.html', context)
