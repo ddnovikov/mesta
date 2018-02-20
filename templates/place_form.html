@@ -47,19 +47,11 @@
                   <div class="row">
                     <legend class="col-form-label col-sm-3 pt-0">{{ field.label }}</legend>
                     <div class="col-sm-5">
-                      {% for value in null_bool_values %}
-                        <div class="custom-control custom-radio">
-                          <input class="custom-control-input"
-                                 type="radio"
-                                 name="{{ field.html_name }}"
-                                 id="{{ field.html_name | slugify_field:value }}"
-                                 value="{{ field.value }}"
-                                 {% if field.field.required %}required{% endif %}>
-                          <label class="custom-control-label" for="{{ field.html_name | slugify_field:value }}">
-                            {{ value }}
-                          </label>
-                        </div>
-                      {% endfor %}
+                      <select class="custom-select" id="{{ field.id_for_label }}" name="{{ field.html_name }}">
+                        {% for key, value in null_bool_values.items %}
+                          <option value="{{ key }}" {% if field.value == value.1 %}selected{% endif %}>{{ value.0 }}</option>
+                        {% endfor %}
+                      </select>
                       {{ field.errors }}
                     </div>
                   </div>

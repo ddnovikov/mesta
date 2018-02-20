@@ -33,10 +33,10 @@ def place_create(request, place_base_type='place'):
     if Form is None:
         return Http404('Page not found.')
 
-    if request.method == 'POST':
-        form = Form(request.POST or None)
-        image_form = ImageForm(request.POST or None, request.FILES or None)
+    form = Form(request.POST or None)
+    image_form = ImageForm(request.POST or None, request.FILES or None)
 
+    if request.method == 'POST':
         if form.is_valid():
             place_instance = form.save(commit=False)
             place_instance.owner = request.user
@@ -50,16 +50,49 @@ def place_create(request, place_base_type='place'):
         messages.success(request, 'Место успешно создано.')
         return redirect(place_instance)
 
+    context = {
+        'place_form': form,
+        'image_form': image_form,
+        'null_bool_values': {1: ['Неизвестно', None], 2: ['Да', True], 3: ['Нет', False]},
+        'title': 'Создать место',
+        'submit_value': 'Создать место',
+    }
+
+    return render(request, 'place_form.html', context)
+
+
+@login_required
+def place_update(request, slug=None):
+    instance = FoodService.objects.get(slug=slug)
+
+    if isinstance(instance, FoodService):
+        form = FoodServiceForm(request.POST or None, instance=instance)
     else:
-        form = Form(request.POST or None)
-        image_form = ImageForm(request.POST or None, request.FILES or None)
+        instance = get_object_or_404(Place, slug=slug)
+        form = PlaceForm(request.POST or None, instance=instance)
+
+    image_form = ImageForm(request.POST or None, request.FILES or None, instance=instance.images.all().first())
+
+    if request.method == 'POST':
+        if form.is_valid():
+            place_instance = form.save(commit=False)
+            place_instance.owner = request.user
+            place_instance.save()
+
+        if image_form.is_valid() and request.FILES:
+            image = image_form['image']
+            image_instance = Image(image=image, content_object=place_instance)
+            image_instance.save()
+
+        messages.success(request, 'Место успешно создано.')
+        return redirect(place_instance)
 
     context = {
         'place_form': form,
         'image_form': image_form,
-        'null_bool_values': ['Да', 'Нет', 'Неизвестно'],
-        'title': 'Создать место',
-        'submit_value': 'Создать место',
+        'null_bool_values': {1: ['Неизвестно', None], 2: ['Да', True], 3: ['Нет', False]},
+        'title': f'Изменить место {instance.name}',
+        'submit_value': 'Сохранить изменения',
     }
 
     return render(request, 'place_form.html', context)
