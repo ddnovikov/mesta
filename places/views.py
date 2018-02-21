@@ -27,6 +27,7 @@ def places_home(request):
         'all_services': all_services,
         'search_query': search_query,
         'carousel': carousel,
+        'carousel_amount': range(len(carousel)),
         'tags': ['Рестораны',
                  'Крафт-бары',
                  'Азиатская кухня',
