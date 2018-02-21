@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-# from django.contrib.contenttypes.forms import generic_inlineformset_factory
-from django.http import Http404
+from django.core.exceptions import ObjectDoesNotExist
+from django.http import Http404, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
 from places.models import Place, FoodService
@@ -43,8 +43,12 @@ def place_create(request, place_base_type='place'):
             place_instance.save()
 
         if image_form.is_valid() and request.FILES:
-            image = image_form['image']
-            image_instance = Image(image=image, content_object=place_instance)
+            image = image_form.cleaned_data['image']
+            try:
+                image_instance = Image(image=image, content_object=place_instance)
+            except ObjectDoesNotExist:
+                return HttpResponse('Неверный запрос. Нельзя сохранить изображение, '
+                                    'не связав его с объектом.', status=500)
             image_instance.save()
 
         messages.success(request, 'Место успешно создано.')
@@ -63,15 +67,17 @@ def place_create(request, place_base_type='place'):
 
 @login_required
 def place_update(request, slug=None):
-    instance = FoodService.objects.get(slug=slug)
+    instance = FoodService.objects.get_or_none(slug=slug)
 
-    if instance:
+    if instance is not None:
         form = FoodServiceForm(request.POST or None, instance=instance)
     else:
         instance = get_object_or_404(Place, slug=slug)
         form = PlaceForm(request.POST or None, instance=instance)
 
-    image_form = ImageForm(request.POST or None, request.FILES or None, instance=instance.images.all().first())
+    image_form = ImageForm(request.POST or None,
+                           request.FILES or None,
+                           instance=instance.images.all().first())
 
     if request.method == 'POST':
         if form.is_valid():
@@ -82,7 +88,11 @@ def place_update(request, slug=None):
         if image_form.is_valid() and request.FILES:
             image = image_form.cleaned_data['image']
             instance.images.all().delete()
-            image_instance = Image(image=image, content_object=place_instance)
+            try:
+                image_instance = Image(image=image, content_object=place_instance)
+            except ObjectDoesNotExist:
+                return HttpResponse('Неверный запрос. Нельзя сохранить изображение, '
+                                    'не связав его с объектом.', status=500)
             image_instance.save()
 
         messages.success(request, 'Место успешно создано.')
@@ -123,6 +133,22 @@ def place_list(request):
     context = {
         'all_fss': all_fss,
         'title': 'Каталог заведений',
+    }
+
+    return render(request, 'place_list.html', context)
+
+
+def place_tag(request):
+    query = request.GET.get('tag', '').strip()
+
+    if query:
+        places_by_tag = FoodService.objects.filter(tags__contains=query)
+    else:
+        raise Http404
+
+    context = {
+        'all_fss': places_by_tag,
+        'title': f'Каталог заведений с тегом {query}',
     }
 
     return render(request, 'place_list.html', context)
