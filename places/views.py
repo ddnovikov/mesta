@@ -17,6 +17,13 @@ def places_home(request):
     context = {
         'all_services': all_services,
         'search_query': search_query,
+        'tags': ['Рестораны',
+                 'Крафт-бары',
+                 'Азиатская кухня',
+                 'Кофейни',
+                 'Японская кухня',
+                 'Итальянская кухня',
+                 'Русская кухня'],
     }
 
     return render(request, 'home.html', context)
@@ -132,7 +139,7 @@ def place_list(request):
 
     context = {
         'all_fss': all_fss,
-        'title': 'Каталог заведений',
+        'title': 'Каталог заведений'
     }
 
     return render(request, 'place_list.html', context)
@@ -143,13 +150,12 @@ def place_tag(request):
 
     if query:
         places_by_tag = FoodService.objects.filter(tags__icontains=query)
-        print(places_by_tag)
     else:
         raise HttpResponse('Задан пустой фильтр по тегам.')
 
     context = {
         'all_fss': places_by_tag,
-        'title': f'Каталог заведений с тегом {query}',
+        'title': f'Каталог заведений с тегом "{query}"',
     }
 
     return render(request, 'place_list.html', context)
