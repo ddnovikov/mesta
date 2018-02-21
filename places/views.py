@@ -65,7 +65,7 @@ def place_create(request, place_base_type='place'):
 def place_update(request, slug=None):
     instance = FoodService.objects.get(slug=slug)
 
-    if isinstance(instance, FoodService):
+    if instance:
         form = FoodServiceForm(request.POST or None, instance=instance)
     else:
         instance = get_object_or_404(Place, slug=slug)
@@ -80,7 +80,8 @@ def place_update(request, slug=None):
             place_instance.save()
 
         if image_form.is_valid() and request.FILES:
-            image = image_form['image']
+            image = image_form.cleaned_data['image']
+            instance.images.all().delete()
             image_instance = Image(image=image, content_object=place_instance)
             image_instance.save()
 
@@ -91,7 +92,7 @@ def place_update(request, slug=None):
         'place_form': form,
         'image_form': image_form,
         'null_bool_values': {1: ['Неизвестно', None], 2: ['Да', True], 3: ['Нет', False]},
-        'title': f'Изменить место {instance.name}',
+        'title': f'Изменить место "{instance.name}"',
         'submit_value': 'Сохранить изменения',
     }
 
@@ -99,8 +100,14 @@ def place_update(request, slug=None):
 
 
 def place_detail(request, slug=None):
-    instance = get_object_or_404(Place, slug=slug)
+    instance = FoodService.objects.get_or_none(slug=slug)
+    if instance is None:
+        instance = get_object_or_404(Place, slug=slug)
+
     image = instance.images.all().first()
+
+    if image is not None:
+        image = image.image
 
     context = {
         'instance': instance,
@@ -115,7 +122,7 @@ def place_list(request):
 
     context = {
         'all_fss': all_fss,
-        'title': 'Все заведения'
+        'title': 'Каталог заведений',
     }
 
     return render(request, 'place_list.html', context)

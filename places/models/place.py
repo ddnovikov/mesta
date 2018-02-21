@@ -11,6 +11,14 @@ from attachments.models import Image, File
 from shared_tools.misc.slugs import create_slug
 
 
+class PlaceManager(models.Manager):
+    def get_or_none(self, *args, **kwargs):
+        try:
+            return super(PlaceManager, self).get(*args, **kwargs)
+        except self.DoesNotExist:
+            return None
+
+
 class Place(models.Model):
     name = models.CharField(max_length=200, verbose_name='Название')
     slug = models.SlugField(blank=True, unique=True, verbose_name='Slug')
@@ -43,6 +51,8 @@ class Place(models.Model):
     images = GenericRelation(Image, verbose_name='Прикреплённые изображения')
     files = GenericRelation(File, verbose_name='Прикреплённые файлы')
 
+    objects = PlaceManager()
+
     class Meta:
         db_table = "places"
         verbose_name = "Место"
@@ -62,6 +72,11 @@ class Place(models.Model):
 
     def subway_to_string(self):
         return ' '.join(self.subway)
+
+    def image_cover_url(self):
+        obj = self.images.all().first()
+        if obj:
+            return obj.image.url
 
 
 @receiver(pre_save, sender=Place)

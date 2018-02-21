@@ -22,7 +22,9 @@
           </small>
         </h1>
         <hr/>
-        <img src="{{ image.url }}" class="img-fluid rounded">
+        {% if image %}
+          <img src="{{ image.url }}" class="img-fluid rounded">
+        {% endif %}
         {{ instance.description }}
 {#        <p>Владелец заведения: {{ instance.owner.get_full_name }}</p>#}
       </div>

@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block head_title %}
+  {{ title }} | {{ block.super }}
+{% endblock head_title %}
+
 {% block head_extra %}
   <link rel="stylesheet" href="{% static 'css/place_list.css' %}">
 {% endblock %}
@@ -8,25 +12,21 @@
 {% block content %}
   <div class="container">
     <div id="place-list-main">
-{#    <div class="row">#}
-{#      <div class="col-md-10 offset-md-1">#}
-        <h1>{{ title }}</h1>
-        <hr/>
-        {% for place in all_fss %}
-          {% cycle '<div class="row"><div class="card-deck">' '' '' %}
-          <div class="card">
-            <img class="card-img-top img-fluid img-r" src="https://img01.rl0.ru/afisha/o/s1.afisha.ru/MediaStorage/e9/a0/36c182260f684991a29e6810a0e9.jpg">
-            <div class="card-body">
-              <a href="{{ place.get_absolute_url }}" class="h4 card-title">{{ place.name }}</a>
-            </div>
+      <h1>{{ title }}</h1>
+      <hr/>
+      {% for place in all_fss %}
+        {% cycle '<div class="row"><div class="card-deck">' '' '' %}
+        <div class="card">
+          <img class="card-img-top img-fluid img-r" src="{{ place.image_cover_url }}">
+          <div class="card-body">
+            <a href="{{ place.get_absolute_url }}" class="h4 card-title">{{ place.name }}</a>
           </div>
-          {% cycle '' '' '</div></div><br/>' %}
-          {% if forloop.last and not forloop.counter|divisibleby:3 %}
-            </div></div>
-          {% endif %}
-        {% endfor %}
-{#      </div>#}
-{#    </div>#}
+        </div>
+        {% cycle '' '' '</div></div><br/>' %}
+        {% if forloop.last and not forloop.counter|divisibleby:3 %}
+          </div></div>
+        {% endif %}
+      {% endfor %}
     </div>
   </div>
 {% endblock %}
