@@ -66,7 +66,7 @@ def place_create(request, place_base_type='place'):
 
 
 @login_required
-def place_update(request, slug=None):
+def place_update(request, slug):
     instance = FoodService.objects.get_or_none(slug=slug)
 
     if instance is not None:
@@ -109,7 +109,7 @@ def place_update(request, slug=None):
     return render(request, 'place_form.html', context)
 
 
-def place_detail(request, slug=None):
+def place_detail(request, slug):
     instance = FoodService.objects.get_or_none(slug=slug)
     if instance is None:
         instance = get_object_or_404(Place, slug=slug)
@@ -154,8 +154,12 @@ def place_tag(request):
     return render(request, 'place_list.html', context)
 
 
-# def place_delete(request):
-#     pass
-#
-# ImageFormSet = generic_inlineformset_factory(Image, form=ImageForm, min_num=0)
-# image_formset = ImageFormSet(request.POST or None, request.FILES or None)
+def place_delete(request, slug):
+    instance = FoodService.objects.get_or_none(slug=slug)
+    if instance is None:
+        instance = get_object_or_404(Place, slug=slug)
+
+    instance.delete()
+    messages.success(request, 'Объект успешно удалён.')
+
+    return redirect('places:home')
