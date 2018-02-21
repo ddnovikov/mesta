@@ -38,9 +38,7 @@
                                 class="form-control"
                                 rows="8"
                                 name="{{ field.html_name }}"
-                                {% if field.field.required %}required{% endif %}>
-                      {{ field.value | default:'' }}
-                      </textarea>
+                                {% if field.field.required %}required{% endif %}>{{ field.value | default:'' }}</textarea>
                       {{ field.errors }}
                     {% endif %}
                   </div>

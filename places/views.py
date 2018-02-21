@@ -142,9 +142,10 @@ def place_tag(request):
     query = request.GET.get('tag', '').strip()
 
     if query:
-        places_by_tag = FoodService.objects.filter(tags__contains=query)
+        places_by_tag = FoodService.objects.filter(tags__icontains=query)
+        print(places_by_tag)
     else:
-        raise Http404
+        raise HttpResponse('Задан пустой фильтр по тегам.')
 
     context = {
         'all_fss': places_by_tag,
