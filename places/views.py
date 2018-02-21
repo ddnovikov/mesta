@@ -13,10 +13,20 @@ from attachments.forms import ImageForm
 def places_home(request):
     all_services = FoodService.objects.all()
     search_query = request.GET.get('q')
+    carousel = []
+
+    for i in [63, 61, 64]:
+        instance = FoodService.objects.filter(pk=i).first()
+        image = instance.images.all().first()
+
+        if image is not None:
+            image = image.image
+            carousel.append((instance, image))
 
     context = {
         'all_services': all_services,
         'search_query': search_query,
+        'carousel': carousel,
         'tags': ['Рестораны',
                  'Крафт-бары',
                  'Азиатская кухня',
