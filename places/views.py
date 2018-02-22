@@ -4,15 +4,16 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
-from places.models import Place, FoodService
-from places.forms import PlaceForm, FoodServiceForm
 from attachments.models import Image
 from attachments.forms import ImageForm
+from places.models import Place, FoodService
+from places.forms import PlaceForm, FoodServiceForm
+from places.documents import FoodServiceDocument
+from shared_tools.misc.chain_search import chain_search
 
 
 def places_home(request):
     all_services = FoodService.objects.all()
-    search_query = request.GET.get('q')
     carousel = []
 
     for i in [63, 61, 64]:
@@ -25,7 +26,6 @@ def places_home(request):
 
     context = {
         'all_services': all_services,
-        'search_query': search_query,
         'carousel': carousel,
         'carousel_amount': range(len(carousel)),
         'tags': ['Рестораны',
@@ -149,7 +149,7 @@ def place_list(request):
     all_fss = FoodService.objects.all()
 
     context = {
-        'all_fss': all_fss,
+        'place_objects': all_fss,
         'title': 'Каталог заведений'
     }
 
@@ -162,7 +162,7 @@ def place_tag(request):
     if query:
         places_by_tag = FoodService.objects.filter(tags__icontains=query)
     else:
-        raise HttpResponse('Задан пустой фильтр по тегам.')
+        return HttpResponse('Задан пустой фильтр по тегам.')
 
     context = {
         'all_fss': places_by_tag,
@@ -170,6 +170,24 @@ def place_tag(request):
     }
 
     return render(request, 'place_list.html', context)
+
+
+def place_search(request):
+    search_query = request.GET.get('q')
+
+    if search_query:
+        search_results = chain_search({'name': search_query}, FoodServiceDocument.search())
+        search_results = search_results.to_queryset()
+    else:
+        return HttpResponse('Задан пустой поисковый запрос.')
+
+    context = {
+        'place_objects': search_results,
+        'title': f'Результаты поиска по запросу "{search_query}"',
+    }
+
+    return render(request, 'place_list.html', context=context)
+
 
 
 def place_delete(request, slug):

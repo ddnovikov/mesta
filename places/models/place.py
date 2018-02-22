@@ -74,6 +74,7 @@ class Place(models.Model):
     def subway_to_string(self):
         return ' '.join(self.subway)
 
+    @property
     def image_cover_url(self):
         obj = self.images.all().first()
         if obj:

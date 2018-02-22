@@ -37,14 +37,16 @@
 
   <section class="py-5">
     <div class="container">
-      <div class="row">
+      <form action="{% url 'places:search' %}" method="get">
         <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Введите название места" aria-label="place-name" aria-describedby="basic-addon2">
+          <input type="text" class="form-control" name="q" placeholder="Введите название места" aria-label="place-name" aria-describedby="basic-addon2">
           <div class="input-group-append">
-            <button class="btn btn-outline-primary" type="button">Найти</button>
+            <a href="{% url 'places:search' %}"
+               type="button"
+               class="btn btn-outline-primary">Найти</a>
           </div>
         </div>
-      </div>
+      </form>
       <div class="row">
         <div class="col">
           <p class="text-center">или выберите интересующую вас категорию:</p>
