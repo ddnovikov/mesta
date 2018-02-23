@@ -12,23 +12,25 @@
 {% block content %}
   <div class="container">
     <div id="place-list-main">
-      <h1>{{ title }}</h1>
-      <hr/>
-      {% for place in place_objects %}
-        {% cycle '<div class="row"><div class="card-deck">' '' '' %}
-        <div class="card">
-          <img class="card-img-top img-fluid img-r" src="{{ place.image_cover_url }}">
-          <div class="card-body">
-            <a href="{{ place.get_absolute_url }}" class="h4 card-title">{{ place.name }}</a>
-            <hr/>
-            <p class="card-text">{{ place.short_description }}</p>
+      <div class="col">
+        <h1>{{ title }}</h1>
+        <hr/>
+        {% for place in place_objects %}
+          {% cycle '<div class="row"><div class="col"><div class="card-deck">' '' '' %}
+          <div class="card">
+            <img class="card-img-top img-fluid img-r" src="{{ place.image_cover_url }}">
+            <div class="card-body">
+              <a href="{{ place.get_absolute_url }}" class="h4 card-title">{{ place.name }}</a>
+              <hr/>
+              <p class="card-text">{{ place.short_description }}</p>
+            </div>
           </div>
-        </div>
-        {% cycle '' '' '</div></div><br/>' %}
-        {% if forloop.last and not forloop.counter|divisibleby:3 %}
-          </div></div>
-        {% endif %}
-      {% endfor %}
+          {% cycle '' '' '</div></div></div><br/>' %}
+          {% if forloop.last and not forloop.counter|divisibleby:3 %}
+            </div></div>
+          {% endif %}
+        {% endfor %}
+      </div>
     </div>
   </div>
 {% endblock %}

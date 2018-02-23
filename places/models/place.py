@@ -70,11 +70,11 @@ class Place(models.Model):
         return reverse('places:detail', kwargs={'slug': self.slug})
 
     @property
-    def tags_to_string(self):
+    def tags_as_string(self):
         return ', '.join(self.tags)
 
     @property
-    def subway_to_string(self):
+    def subway_as_string(self):
         return ', '.join(self.subway)
 
     @property
@@ -97,7 +97,7 @@ class Place(models.Model):
 
     @property
     def contacts(self):
-        res = [('Адрес', self.full_address), ('Ближайшие станции метро', self.subway_to_string)]
+        res = [('Адрес', self.full_address), ('Ближайшие станции метро', self.subway_as_string)]
         contacts_fields = [
             'site',
             'telephone',

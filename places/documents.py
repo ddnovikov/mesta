@@ -7,8 +7,8 @@ food_services = Index('food_services')
 
 @places.doc_type
 class PlaceDocument(DocType):
-    tags = fields.StringField(attr="tags_to_string")
-    subway = fields.StringField(attr="subway_to_string")
+    tags = fields.StringField(attr="tags_as_string")
+    subway = fields.StringField(attr="subway_as_string")
 
     class Meta:
         model = Place
@@ -50,8 +50,8 @@ class PlaceDocument(DocType):
 
 @food_services.doc_type
 class FoodServiceDocument(DocType):
-    tags = fields.StringField(attr="tags_to_string")
-    subway = fields.StringField(attr="subway_to_string")
+    tags = fields.StringField(attr="tags_as_string")
+    subway = fields.StringField(attr="subway_as_string")
 
     class Meta:
         model = FoodService

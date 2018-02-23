@@ -40,6 +40,7 @@ class FoodService(Place):
 
     @property
     def about_service(self):
+        res = []
         service_props = [
             'place_type',
             'parking',
@@ -47,11 +48,27 @@ class FoodService(Place):
             'wi_fi',
             'banquets',
             'delivery',
-            'catering'
+            'catering',
         ]
 
-        return [(self._meta.get_field(p).verbose_name,
-                 getattr(self, p)) for p in service_props if getattr(self, p) is not None]
+        bools = {True: 'Да', False: 'Нет', None: 'Неизвестно'}
+
+        for p in service_props:
+            cur_attr = getattr(self, p)
+
+            if cur_attr is not None:
+                if isinstance(cur_attr, bool):
+                    res.append((self._meta.get_field(p).verbose_name, bools[cur_attr]))
+                else:
+                    res.append((self._meta.get_field(p).verbose_name, cur_attr))
+
+        res.append(('Теги', self.tags_as_string))
+
+        return res
+
+    @property
+    def layout_info(self):
+        return [self.about_service, self.contacts]
 
 
 @receiver(pre_save, sender=FoodService)

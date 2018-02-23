@@ -50,30 +50,20 @@
             </div>
           </nav>
           <div class="tab-content" id="nav-tabContent">
+            {% for section in instance.layout_info %}
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
               <div class="tab-content">
-              {% for prop in instance.about_service %}
+                {% for prop in section %}
                 <div class="row">
                   <p class="col-sm-2 bold-field">{{ prop.0 }}</p>
                   <div class="col-sm-10">
-                    <p>{% if prop.1 == True %}Да{% elif prop.1 == False %}Нет{% else %}Неизвестно{% endif %}</p>
+                    <p>{{ prop.1 }}</p>
                   </div>
                 </div>
-              {% endfor %}
-              </div>
-            </div>
-            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-              <div class="tab-content">
-                {% for prop in instance.contacts %}
-                  <div class="row">
-                    <p class="col-sm-2 bold-field">{{ prop.0 }}</p>
-                    <div class="col-sm-10">
-                      <p>{{ prop.1 }}</p>
-                    </div>
-                  </div>
                 {% endfor %}
               </div>
             </div>
+            {% endfor %}
           </div>
 {#        <p>Владелец заведения: {{ instance.owner.get_full_name }}</p>#}
         </div>
