@@ -15,7 +15,7 @@ class PlaceDocument(DocType):
         fields = [
             'name',
             'slug',
-            'description',
+            'long_description',
             'country',
             'region',
             'city',
@@ -58,7 +58,7 @@ class FoodServiceDocument(DocType):
         fields = [
             'name',
             'slug',
-            'description',
+            'long_description',
             'country',
             'region',
             'city',

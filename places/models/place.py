@@ -23,7 +23,8 @@ class PlaceManager(models.Manager):
 class Place(models.Model):
     name = models.CharField(max_length=200, verbose_name='Название')
     slug = models.SlugField(blank=True, unique=True, verbose_name='Slug')
-    description = models.TextField(blank=True, verbose_name='Описание')
+    short_description = models.CharField(max_length=200, blank=True, null=True, verbose_name='Короткое описание')
+    long_description = models.TextField(blank=True, verbose_name='Длинное описание')
     draft = models.BooleanField(default=True, verbose_name='Черновик / Видимость объекта')
     rating = models.FloatField(blank=True, null=True, verbose_name='Рейтинг')
     tags = ArrayField(models.CharField(max_length=200), blank=True, verbose_name='Теги')

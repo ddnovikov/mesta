@@ -4,13 +4,16 @@ from places.models import Place
 
 
 class PlaceForm(forms.ModelForm):
-    description = forms.CharField(label='Описание', required=False, widget=forms.Textarea)
+    short_description = forms.CharField(label='Короткое описание', required=False, widget=forms.Textarea)
+    long_description = forms.CharField(label='Длинное описание', required=False, widget=forms.Textarea)
+
     class Meta:
         model = Place
         fields = [
             'name',
             'slug',
-            'description',
+            'short_description',
+            'long_description',
             'draft',
             'tags',
             'country',

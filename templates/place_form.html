@@ -36,7 +36,7 @@
                     {% elif field|field_type == 'txt' %}
                       <textarea id="{{ field.id_for_label }}"
                                 class="form-control"
-                                rows="8"
+                                rows="{% if field.html_name == 'short_description' %}3{% else %}8{% endif %}"
                                 name="{{ field.html_name }}"
                                 {% if field.field.required %}required{% endif %}>{{ field.value | default:'' }}</textarea>
                       {{ field.errors }}

@@ -10,9 +10,14 @@ def image_upload_location(instance, filename):
 class Image(models.Model):
     image = models.ImageField(upload_to=image_upload_location,
                               height_field='height_field',
-                              width_field='width_field')
+                              width_field='width_field',
+                              blank=True,
+                              null=True,
+                              verbose_name='Изображение')
     height_field = models.IntegerField(default=0)
     width_field = models.IntegerField(default=0)
+    # Image or image url should be filled while creating Image object.
+    # image_url = models.URLField(blank=True, verbose_name='Ссылка на изображение')
 
     name = models.CharField(max_length=200, verbose_name='Название', blank=True)
     description = models.TextField(verbose_name='Описание', blank=True)

@@ -12,7 +12,7 @@
 {% block content %}
   <div class="container">
     <div id="place-detail-main">
-      <div class="col">
+      <div class="row">
         <h1>
           {{ instance.name }}<br/>
           <small style="font-size: 20px">
@@ -22,12 +22,20 @@
           </small>
         </h1>
         <hr/>
-        {% if image %}
-          <img src="{{ image.url }}" class="img-fluid rounded">
-        {% endif %}
-        {{ instance.description }}
-{#        <p>Владелец заведения: {{ instance.owner.get_full_name }}</p>#}
       </div>
+      <div class="row">
+        <div class="col">
+          {% if image %}
+            <img src="{{ image.url }}" class="img-fluid rounded">
+          {% endif %}
+        </div>
+        <div class="col">
+          {% if instance.short_description %}
+            <h2>{{ instance.short_description }}</h2>
+          {% endif %}
+        </div>
+      </div>
+{#        <p>Владелец заведения: {{ instance.owner.get_full_name }}</p>#}
     </div>
   </div>
 {% endblock content %}

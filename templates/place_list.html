@@ -20,6 +20,8 @@
           <img class="card-img-top img-fluid img-r" src="{{ place.image_cover_url }}">
           <div class="card-body">
             <a href="{{ place.get_absolute_url }}" class="h4 card-title">{{ place.name }}</a>
+            <hr/>
+            <p class="card-text">{{ place.short_description }}</p>
           </div>
         </div>
         {% cycle '' '' '</div></div><br/>' %}

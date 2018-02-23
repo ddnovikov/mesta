@@ -9,7 +9,7 @@ class PlaceAdmin(admin.ModelAdmin):
 
     list_display = ['name', 'country', 'city', 'owner', 'updated']
     list_filter = ['updated', 'owner', 'country', 'city']
-    search_fields = ['name', 'description', 'country', 'city']
+    search_fields = ['name', 'long_description', 'country', 'city']
 
 
 class FoodServiceAdmin(PlaceAdmin):
