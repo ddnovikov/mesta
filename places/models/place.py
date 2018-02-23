@@ -69,27 +69,46 @@ class Place(models.Model):
     def get_absolute_url(self):
         return reverse('places:detail', kwargs={'slug': self.slug})
 
+    @property
     def tags_to_string(self):
-        return ' '.join(self.tags)
-
-    def subway_to_string(self):
-        return ' '.join(self.subway)
+        return ', '.join(self.tags)
 
     @property
-    def contacts(self):
-        contacts_fields = [
+    def subway_to_string(self):
+        return ', '.join(self.subway)
+
+    @property
+    def full_address(self):
+        res = []
+        address_fields = [
             'country',
             'region',
             'city',
             'street',
             'building_number',
-            'subway',
+        ]
+
+        for f in address_fields:
+            cur_attr = getattr(self, f)
+            if cur_attr is not None and cur_attr not in {'Москва', 'Санкт-Петербург'}:
+                res.append(cur_attr)
+
+        return ', '.join(res)
+
+    @property
+    def contacts(self):
+        res = [('Адрес', self.full_address), ('Ближайшие станции метро', self.subway_to_string)]
+        contacts_fields = [
             'site',
             'telephone',
         ]
 
-        return [(self._meta.get_field(c).verbose_name,
-                 getattr(self, c)) for c in contacts_fields if getattr(self, c) is not None]
+        for c in contacts_fields:
+            cur_attr = getattr(self, c)
+            if cur_attr is not None:
+                res.append((self._meta.get_field(c).verbose_name, cur_attr))
+
+        return res
 
     @property
     def image_cover_url(self):
