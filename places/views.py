@@ -132,14 +132,8 @@ def place_detail(request, slug):
     if instance is None:
         instance = get_object_or_404(Place, slug=slug)
 
-    image = instance.images.all().first()
-
-    if image is not None:
-        image = image.image
-
     context = {
         'instance': instance,
-        'image': image,
     }
 
     return render(request, 'place_detail.html', context)

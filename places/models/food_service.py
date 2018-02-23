@@ -17,8 +17,9 @@ class FoodService(Place):
                                               (4, "Фаст-фуд"),
                                               (5, "Бар")],
                                      blank=True,
-                                     null=True)
-    menu = models.FileField(upload_to=upload_location_menu, blank=True, null=True)
+                                     null=True,
+                                     verbose_name='Тип заведения')
+    menu = models.FileField(upload_to=upload_location_menu, blank=True, null=True, verbose_name='Меню')
     parking = models.NullBooleanField(verbose_name='Парковка')
     bank_cards = models.NullBooleanField(verbose_name='Приём банковских карт')
     wi_fi = models.NullBooleanField(verbose_name='Вай-фай')
@@ -36,6 +37,21 @@ class FoodService(Place):
 
     def __str__(self):
         return self.name
+
+    @property
+    def about_service(self):
+        service_props = [
+            'place_type',
+            'parking',
+            'bank_cards',
+            'wi_fi',
+            'banquets',
+            'delivery',
+            'catering'
+        ]
+
+        return [(self._meta.get_field(p).verbose_name,
+                 getattr(self, p)) for p in service_props if getattr(self, p) is not None]
 
 
 @receiver(pre_save, sender=FoodService)

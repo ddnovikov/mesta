@@ -13,29 +13,71 @@
   <div class="container">
     <div id="place-detail-main">
       <div class="row">
-        <h1>
-          {{ instance.name }}<br/>
-          <small style="font-size: 20px">
-            {% if instance.draft %}
-              <span style='color:red;'>Черновик</span>
-            {% endif %}
-          </small>
-        </h1>
-        <hr/>
+        <div class="col">
+          <h1>
+            {{ instance.name }}<br/>
+            <small style="font-size: 20px">
+              {% if instance.draft %}
+                <span style='color:red;'>Черновик</span>
+              {% endif %}
+            </small>
+          </h1>
+        </div>
       </div>
+      <hr/>
       <div class="row">
         <div class="col">
-          {% if image %}
-            <img src="{{ image.url }}" class="img-fluid rounded">
-          {% endif %}
-        </div>
-        <div class="col">
+          <div id="detail-img" class="pull-left">
+            {% if instance.image_cover_url %}
+              <img class="img-fluid rounded img-d" src="{{ instance.image_cover_url }}">
+            {% endif %}
+          </div>
+
           {% if instance.short_description %}
             <h2>{{ instance.short_description }}</h2>
           {% endif %}
+          {% if instance.long_description %}
+            <p>{{ instance.long_description }}</p>
+          {% endif %}
         </div>
       </div>
+      <div class="row">
+        <div class="col">
+          <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">О ресторане</a>
+              <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Контактная информация</a>
+            </div>
+          </nav>
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+              <div class="tab-content">
+              {% for prop in instance.about_service %}
+                <div class="row">
+                  <p class="col-sm-2 bold-field">{{ prop.0 }}</p>
+                  <div class="col-sm-10">
+                    <p>{% if prop.1 == True %}Да{% elif prop.1 == False %}Нет{% else %}Неизвестно{% endif %}</p>
+                  </div>
+                </div>
+              {% endfor %}
+              </div>
+            </div>
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+              <div class="tab-content">
+                {% for prop in instance.contacts %}
+                  <div class="row">
+                    <p class="col-sm-2 bold-field">{{ prop.0 }}</p>
+                    <div class="col-sm-10">
+                      <p>{{ prop.1 }}</p>
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
 {#        <p>Владелец заведения: {{ instance.owner.get_full_name }}</p>#}
+        </div>
+      </div>
     </div>
   </div>
 {% endblock content %}

@@ -76,6 +76,22 @@ class Place(models.Model):
         return ' '.join(self.subway)
 
     @property
+    def contacts(self):
+        contacts_fields = [
+            'country',
+            'region',
+            'city',
+            'street',
+            'building_number',
+            'subway',
+            'site',
+            'telephone',
+        ]
+
+        return [(self._meta.get_field(c).verbose_name,
+                 getattr(self, c)) for c in contacts_fields if getattr(self, c) is not None]
+
+    @property
     def image_cover_url(self):
         obj = self.images.all().first()
         if obj:

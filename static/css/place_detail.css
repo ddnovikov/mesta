@@ -1,3 +1,30 @@
+.table.table-borderless td, .table.table-borderless th {
+    border: 0 !important;
+}
+
+.table.table-borderless {
+    margin-bottom: 0px;
+}
+
+.img-d {
+    width: 600px;
+    height: 400px;
+    margin-right: 20px;
+    margin-bottom: 3px;
+}
+
+.bold-field {
+    font-weight: bold;
+}
+
+.tab-content {
+    margin-top: 13px;
+}
+
 #place-detail-main {
     margin-top: 90px;
+}
+
+#nav-tab {
+    background-color: #FFFFFF;
 }
