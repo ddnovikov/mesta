@@ -36,7 +36,7 @@ def places_home(request):
                  'Русская кухня'],
     }
 
-    return render(request, 'home.html', context)
+    return render(request, 'places_home.html', context)
 
 
 @login_required
@@ -79,7 +79,7 @@ def place_create(request, place_base_type='place'):
         'submit_value': 'Создать место',
     }
 
-    return render(request, 'place_form.html', context)
+    return render(request, 'create_form.html', context)
 
 
 @login_required
@@ -123,7 +123,7 @@ def place_update(request, slug):
         'submit_value': 'Сохранить изменения',
     }
 
-    return render(request, 'place_form.html', context)
+    return render(request, 'create_form.html', context)
 
 
 def place_detail(request, slug):
