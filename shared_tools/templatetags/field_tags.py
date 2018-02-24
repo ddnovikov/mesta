@@ -1,5 +1,5 @@
 from django import template
-from django.forms import fields, widgets
+from django.forms import fields, models, widgets
 
 from shared_tools.misc.slugs import create_slug
 
@@ -19,9 +19,8 @@ def field_type(field):
     elif isinstance(field_t, fields.NullBooleanField):
         return 'null-bool'
 
-    elif isinstance(field_t, fields.TypedChoiceField):
+    elif isinstance(field_t, fields.TypedChoiceField) or isinstance(field_t, models.ModelChoiceField):
         return 'typed-choice'
-
 
 
 @register.filter(name='slugify_field')

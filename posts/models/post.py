@@ -19,7 +19,7 @@ class Post(models.Model):
     title = models.CharField(max_length=120, verbose_name='Название поста')
     slug = models.SlugField(unique=True, blank=True, verbose_name='Slug')
     content = models.TextField(blank=True, null=True, verbose_name='Текст поста')
-    tags = ArrayField(models.CharField(max_length=200), blank=True, verbose_name='Теги')
+    tags = ArrayField(models.CharField(max_length=200), blank=True, null=True, verbose_name='Теги')
 
     main_image = models.ImageField(upload_to=post_upload_location,
                                    null=True,
@@ -57,7 +57,7 @@ class Post(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('posts:detail', kwargs={'slug': self.slug})
+        return reverse('blogs:detail', kwargs={'slug': self.slug})
 
 
 @receiver(pre_save, sender=Post)

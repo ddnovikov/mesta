@@ -6,11 +6,11 @@
 {% endblock head_title %}
 
 {% block head_extra %}
-  <link rel="stylesheet" href="{% static 'css/place_list.css' %}">
+  <link rel="stylesheet" href="{% static 'css/list.css' %}">
 {% endblock %}
 
 {% block content %}
-  <div id="place-list-main" class="container">
+  <div id="list-main" class="container">
     <h1>{{ title }}</h1>
     <hr/>
     {% for place in place_objects %}

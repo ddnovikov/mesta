@@ -72,7 +72,7 @@ def place_create(request, place_base_type='place'):
         return redirect(place_instance)
 
     context = {
-        'place_form': form,
+        'main_form': form,
         'image_form': image_form,
         'null_bool_values': {1: ['Неизвестно', None], 2: ['Да', True], 3: ['Нет', False]},
         'title': 'Создать место',
@@ -135,7 +135,7 @@ def place_detail(request, slug):
         'instance': instance,
     }
 
-    return render(request, 'place_detail.html', context)
+    return render(request, 'places_detail.html', context)
 
 
 def place_list(request):
@@ -146,7 +146,7 @@ def place_list(request):
         'title': 'Каталог заведений'
     }
 
-    return render(request, 'place_list.html', context)
+    return render(request, 'places_list.html', context)
 
 
 def place_tag(request):
@@ -162,7 +162,7 @@ def place_tag(request):
         'title': f'Каталог заведений с тегом "{query}"',
     }
 
-    return render(request, 'place_list.html', context)
+    return render(request, 'places_list.html', context)
 
 
 def place_search(request):
@@ -179,8 +179,7 @@ def place_search(request):
         'title': f'Результаты поиска по запросу "{search_query}"',
     }
 
-    return render(request, 'place_list.html', context=context)
-
+    return render(request, 'places_list.html', context=context)
 
 
 def place_delete(request, slug):

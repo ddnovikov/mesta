@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head_title %}
+  {{ instance }} | {{ block.super }}
+{% endblock head_title %}
+
+{% block head_extra %}
+  <link rel="stylesheet" href="{% static 'css/post_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div id="post-detail-main">
+      <div class="row">
+        <div class="col">
+          <h1>
+            {{ instance }}<br/>
+            <small style="font-size: 20px">
+              {% if instance.draft %}
+                <span style='color:red;'>Черновик</span>
+              {% endif %}
+            </small>
+          </h1>
+        </div>
+      </div>
+      <hr/>
+      <div class="row">
+        <div class="col">
+
+          {% if instance.place %}
+            <div class="alert alert-primary" role="alert">
+              Место из поста: <a href="{{ instance.place.get_absolute_url }}">{{ instance.place }}</a>.
+            </div>
+          {% endif %}
+          <div id="detail-img" class="pull-left">
+            {% if instance.image %}
+              <img class="img-fluid rounded img-d" src="{{ instance.image.url }}">
+            {% endif %}
+          </div>
+          <p>{{ instance.content }}</p>
+        </div>
+      </div>
+      <p class="owner">Автор: {{ instance.user }}</p>
+    </div>
+  </div>
+{% endblock content %}

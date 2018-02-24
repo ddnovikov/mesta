@@ -1,19 +1,16 @@
 from django import forms
 
-from pagedown.widgets import PagedownWidget
-
-from .models import Post
+from posts.models import Post
 
 
 class PostForm(forms.ModelForm):
-    content = forms.CharField(widget=PagedownWidget(show_preview=False))
-    publish = forms.DateField(widget=forms.SelectDateWidget)
+    content = forms.CharField(label='Текст поста', required=False, widget=forms.Textarea)
+
     class Meta:
         model = Post
         fields = [
             'title',
             'content',
-            'image',
-            'draft',
-            'publish'
+            'tags',
+            'place',
         ]

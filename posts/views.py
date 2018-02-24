@@ -20,12 +20,12 @@ def post_create(request):
         return HttpResponseRedirect(instance.get_absolute_url())
 
     context = {
-        'form': form,
+        'main_form': form,
         'title': 'Создать пост',
         'submit_value': 'Создать пост',
     }
 
-    return render(request, 'shared/create_form.html', context)
+    return render(request, 'create_form.html', context)
 
 
 def post_detail(request, slug=None):
@@ -35,11 +35,11 @@ def post_detail(request, slug=None):
         'instance': instance,
     }
 
-    return render(request, 'post_detail.html', context)
+    return render(request, 'posts_detail.html', context)
 
 
 def post_list(request):
-    all_posts_qs = Post.objects.active()
+    all_posts_qs = Post.objects.all()
     search_query = request.GET.get('q')
 
     paginator = Paginator(all_posts_qs, 15)
@@ -48,10 +48,11 @@ def post_list(request):
     posts = paginator.get_page(page)
 
     context = {
-        'posts': posts
+        'title': 'Блоги',
+        'object_list': posts
     }
 
-    return render(request, 'post_list.html', context)
+    return render(request, 'posts_list.html', context)
 
 
 @login_required
@@ -67,12 +68,12 @@ def post_update(request, slug=None):
 
     context = {
         'instance': instance,
-        'form': form,
-        'title': 'Редактировать пост',
+        'main_form': form,
+        'title': f'Редактировать пост {instance}',
         'submit_value': 'Сохранить изменения',
     }
 
-    return render(request, 'shared/create_form.html', context)
+    return render(request, 'create_form.html', context)
 
 
 @login_required
@@ -81,4 +82,4 @@ def post_delete(request, slug=None):
     instance.delete()
     messages.success(request, 'Успешно удалено.')
 
-    return redirect('posts:home')
+    return redirect('blogs:home')

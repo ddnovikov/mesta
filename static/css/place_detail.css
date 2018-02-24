@@ -1,11 +1,3 @@
-.table.table-borderless td, .table.table-borderless th {
-    border: 0 !important;
-}
-
-.table.table-borderless {
-    margin-bottom: 0px;
-}
-
 .img-d {
     width: 600px;
     height: 400px;

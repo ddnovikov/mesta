@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head_extra %}
+  <link rel="stylesheet" href="{% static 'css/list.css' %}">
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div id="list-main">
+      <div class="row">
+        <div class="col-md-8 offset-md-2">
+          <h1>{{ title }}</h1>
+          <br/>
+          <form action="" method="get">
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" name="q" placeholder="Введите название поста" aria-label="post-name" aria-describedby="basic-addon2">
+              <div class="input-group-append">
+                <a href="{% url 'places:search' %}"
+                   type="button"
+                   class="btn btn-outline-primary">Найти</a>
+              </div>
+            </div>
+          </form>
+
+          {% for obj in object_list %}
+            <div class="card text-dark bg-light mx-auto">
+              {% if obj.image %}
+                <img class="card-img-top" src="{{ obj.image.url }}" alt="Image">
+              {% endif %}
+              <div class="card-body post-detail-item">
+                <h5 class="card-title"><a href='{{ obj.get_absolute_url }}'>{{ obj.title }}</a> <small>{{ obj.timestamp }}</small></h5>
+                {% if obj.user.get_full_name %}
+                  <p>Автор: {{ obj.user.get_full_name }}</p>
+                {% endif %}
+                <p class="card-text">{{ obj.content | truncatewords_html:10 }}<br/></p>
+                <a href='{{ obj.get_absolute_url }}' class="btn btn-primary">Смотреть</a>
+              </div>
+            </div>
+            <br/>
+          {% endfor %}
+
+          <div class="pagination">
+            <span class="step-links">
+            {% if object_list.has_previous %}
+              <a href="?{{ page_request_var }}={{ object_list.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">previous</a>
+            {% endif %}
+
+            <span class="current">
+              Страница {{ object_list.number }} из {{ object_list.paginator.num_pages }}.
+            </span>
+
+            {% if object_list.has_next %}
+              <a href="?{{ page_request_var }}={{ object_list.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">next</a>
+            {% endif %}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

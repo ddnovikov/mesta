@@ -19,11 +19,13 @@ from django.conf.urls.static import static
 from django.urls import path, include
 
 from places import urls as places_urls
+from posts import urls as blogs_urls
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('places/', include(places_urls, namespace='places')),
+    path('blogs/', include(blogs_urls, namespace='blogs'))
 ]
 
 if settings.DEBUG:

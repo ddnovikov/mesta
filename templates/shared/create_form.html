@@ -18,9 +18,9 @@
           <h1>{{ title }}</h1>
           <hr/>
 
-          <form id='place_form' method='POST' action='' enctype="multipart/form-data">
+          <form id='main_form' method='POST' action='' enctype="multipart/form-data">
             {% csrf_token %}
-            {% for field in place_form %}
+            {% for field in main_form %}
               {% if field|field_type == 'std' or field|field_type == 'txt' %}
                 <div class="form-group row">
                   <label for="{{ field.id_for_label }}" class="col-sm-3 col-form-label">{{ field.label }}</label>
@@ -84,23 +84,25 @@
 
               {% endif %}
             {% endfor %}
-            {% for field in image_form %}
-              <div class="form-group row">
-                <label for="{{ field.id_for_label }}" class="col-sm-3 col-form-label">{{ field.label }}</label>
-                <div class="col-sm-9">
-                  <input type="file"
-                         class="form-control-file"
-                         id="{{ field.id_for_label }}"
-                         name="{{ field.html_name }}"
-                         {% if field.field.required %}required{% endif %}>
-                  {% if field.initial %}
-                    <p>Текущее изображение: {{ image_form.initial.image }}</p>
-                  {% endif %}
-                  {{ field.errors }}
-                </div>
-              </div>
-            {% endfor %}
 
+            {% if image_form %}
+              {% for field in image_form %}
+                <div class="form-group row">
+                  <label for="{{ field.id_for_label }}" class="col-sm-3 col-form-label">{{ field.label }}</label>
+                  <div class="col-sm-9">
+                    <input type="file"
+                           class="form-control-file"
+                           id="{{ field.id_for_label }}"
+                           name="{{ field.html_name }}"
+                           {% if field.field.required %}required{% endif %}>
+                    {% if field.initial %}
+                      <p>Текущее изображение: {{ image_form.initial.image }}</p>
+                    {% endif %}
+                    {{ field.errors }}
+                  </div>
+                </div>
+              {% endfor %}
+            {% endif %}
             <div id="place_submit" class="text-center">
               <button type="submit" class="btn btn-primary btn-lg">{{ submit_value }}</button>
             </div>
