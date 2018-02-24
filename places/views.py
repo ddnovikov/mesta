@@ -16,7 +16,7 @@ def places_home(request):
     all_services = FoodService.objects.all()
     carousel = []
 
-    for i in [63, 61, 64]:
+    for i in [63, 72, 64, 71]:
         instance = FoodService.objects.filter(pk=i).first()
         image = instance.images.all().first()
 
