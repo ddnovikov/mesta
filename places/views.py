@@ -28,11 +28,11 @@ def places_home(request):
         'all_services': all_services,
         'carousel': carousel,
         'carousel_amount': range(len(carousel)),
-        'tags': ['Рестораны',
-                 'Крафт-бары',
-                 'Азиатская кухня',
-                 'Кофейни',
+        'tags': ['Бары',
+                 'Кафе',
                  'Японская кухня',
+                 'Американская кухня',
+                 'Европейская кухня',
                  'Итальянская кухня',
                  'Русская кухня'],
     }
@@ -159,7 +159,7 @@ def place_tag(request):
         return HttpResponse('Задан пустой фильтр по тегам.')
 
     context = {
-        'all_fss': places_by_tag,
+        'place_objects': places_by_tag,
         'title': f'Каталог заведений с тегом "{query}"',
     }
 

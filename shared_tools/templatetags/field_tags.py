@@ -19,6 +19,10 @@ def field_type(field):
     elif isinstance(field_t, fields.NullBooleanField):
         return 'null-bool'
 
+    elif isinstance(field_t, fields.TypedChoiceField):
+        return 'typed-choice'
+
+
 
 @register.filter(name='slugify_field')
 def slugify_field(html_name, arg):

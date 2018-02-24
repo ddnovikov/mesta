@@ -67,6 +67,21 @@
                   <label class="custom-control-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
                   <div class="invalid-feedback">{{ field.errors }}</div>
                 </div>
+              {% elif field|field_type == 'typed-choice' %}
+                <fieldset class="form-group">
+                  <div class="row">
+                    <legend class="col-form-label col-sm-3 pt-0">{{ field.label }}</legend>
+                    <div class="col-sm-5">
+                      <select class="custom-select" id="{{ field.id_for_label }}" name="{{ field.html_name }}">
+                        {% for key, value in field.field.choices %}
+                          <option value="{{ key }}" {% if field.value == key %}selected{% endif %}>{{ value }}</option>
+                        {% endfor %}
+                      </select>
+                      {{ field.errors }}
+                    </div>
+                  </div>
+                </fieldset>
+
               {% endif %}
             {% endfor %}
             {% for field in image_form %}
@@ -91,7 +106,6 @@
             </div>
           </form>
         </div>
-
       </div>
     </div>
   </div>
