@@ -34,13 +34,11 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="{% url 'places:home' %}">Рестораны
-{#                <span class="sr-only">(current)</span>#}
-              </a>
+            <li class="nav-item {% if request.resolver_match.view_name == "places:home" %}active{% endif %}">
+              <a class="nav-link" href="{% url 'places:home' %}">Рестораны</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Блоги</a>
+            <li class="nav-item {% if request.resolver_match.view_name == "blogs:home" %}active{% endif %}">
+              <a class="nav-link" href="{% url 'blogs:home' %}">Блоги</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">О нас</a>

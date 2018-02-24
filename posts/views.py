@@ -49,7 +49,8 @@ def post_list(request):
 
     context = {
         'title': 'Блоги',
-        'object_list': posts
+        'object_list': posts,
+        'num_pages': range(1, posts.paginator.num_pages + 1),
     }
 
     return render(request, 'posts_list.html', context)

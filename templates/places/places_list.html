@@ -32,7 +32,7 @@
     {% endfor %}
 
     {% if place_objects.paginator.num_pages > 1 %}
-      <nav id="places-page-nav">
+      <nav id="page-nav">
         <ul class="pagination justify-content-center">
           <li class="page-item {% if not place_objects.has_previous %}disabled{% endif %}">
             <a class="page-link"

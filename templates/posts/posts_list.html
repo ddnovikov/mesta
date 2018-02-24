@@ -40,21 +40,32 @@
             <br/>
           {% endfor %}
 
-          <div class="pagination">
-            <span class="step-links">
-            {% if object_list.has_previous %}
-              <a href="?{{ page_request_var }}={{ object_list.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">previous</a>
-            {% endif %}
-
-            <span class="current">
-              Страница {{ object_list.number }} из {{ object_list.paginator.num_pages }}.
-            </span>
-
-            {% if object_list.has_next %}
-              <a href="?{{ page_request_var }}={{ object_list.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">next</a>
-            {% endif %}
-            </span>
-          </div>
+          {% if object_list.paginator.num_pages > 1 %}
+            <nav id="page-nav">
+              <ul class="pagination justify-content-center">
+                <li class="page-item {% if not object_list.has_previous %}disabled{% endif %}">
+                  <a class="page-link"
+                     href="{% if object_list.has_previous %}
+                             ?page={{ object_list.previous_page_number }}
+                           {% endif %}"
+                     tabindex="-1">Предыдущая</a>
+                </li>
+                {% for num in num_pages %}
+                  <li class="page-item {% if object_list.number == num %}active{% endif %}">
+                    <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                  </li>
+                {% endfor %}
+      
+                <li class="page-item {% if not object_list.has_next %}disabled{% endif %}">
+      
+                  <a class="page-link"
+                     href="{% if object_list.has_next %}?page={{ object_list.next_page_number }}{% endif %}">
+                    Следующая
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          {% endif %}
         </div>
       </div>
     </div>
