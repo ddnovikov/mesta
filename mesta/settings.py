@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'comments',
     'places',
     'posts',
-    'shared_tools',
+    'misc',
 
     'crispy_forms',
     'django_elasticsearch_dsl',

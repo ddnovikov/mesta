@@ -20,12 +20,14 @@ from django.urls import path, include
 
 from places import urls as places_urls
 from posts import urls as blogs_urls
+from misc import urls as misc_urls
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('about/', include(misc_urls, namespace='about')),
     path('places/', include(places_urls, namespace='places')),
-    path('blogs/', include(blogs_urls, namespace='blogs'))
+    path('blogs/', include(blogs_urls, namespace='blogs')),
 ]
 
 if settings.DEBUG:

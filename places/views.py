@@ -10,7 +10,7 @@ from attachments.forms import ImageForm
 from places.models import Place, FoodService
 from places.forms import PlaceForm, FoodServiceForm
 from places.documents import FoodServiceDocument
-from shared_tools.misc.chain_search import chain_search
+from misc.tools.chain_search import chain_search
 
 
 def places_home(request):
@@ -117,7 +117,7 @@ def place_update(request, slug):
         return redirect(place_instance)
 
     context = {
-        'place_form': form,
+        'main_form': form,
         'image_form': image_form,
         'null_bool_values': {1: ['Неизвестно', None], 2: ['Да', True], 3: ['Нет', False]},
         'title': f'Изменить место "{instance.name}"',

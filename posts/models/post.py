@@ -8,7 +8,7 @@ from django.urls import reverse
 
 from attachments.models import Image, File
 from places.models import Place
-from shared_tools.misc.slugs import create_slug
+from misc.tools.slugs import create_slug
 
 
 def post_upload_location(instance, filename):

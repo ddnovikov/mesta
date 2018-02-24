@@ -34,14 +34,14 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item {% if request.resolver_match.view_name == "places:home" %}active{% endif %}">
+            <li class="nav-item {% if request.resolver_match.app_name == "places" %}active{% endif %}">
               <a class="nav-link" href="{% url 'places:home' %}">Рестораны</a>
             </li>
-            <li class="nav-item {% if request.resolver_match.view_name == "blogs:home" %}active{% endif %}">
+            <li class="nav-item {% if request.resolver_match.app_name == "blogs" %}active{% endif %}">
               <a class="nav-link" href="{% url 'blogs:home' %}">Блоги</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">О нас</a>
+            <li class="nav-item {% if request.resolver_match.app_name == "about" %}active{% endif %}">
+              <a class="nav-link" href="{% url 'about:home' %}">О нас</a>
             </li>
           </ul>
           <div class="ml-auto">

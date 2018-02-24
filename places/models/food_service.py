@@ -2,7 +2,7 @@ from django.db import models
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
 
-from shared_tools.misc.slugs import create_slug
+from misc.tools.slugs import create_slug
 from .place import Place
 
 

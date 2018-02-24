@@ -1,7 +1,7 @@
 from django import template
 from django.forms import fields, models, widgets
 
-from shared_tools.misc.slugs import create_slug
+from misc.tools.slugs import create_slug
 
 register = template.Library()
 
