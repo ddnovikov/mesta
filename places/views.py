@@ -30,7 +30,6 @@ def places_home(request):
         'carousel_amount': range(len(carousel)),
         'tags': ['Бары',
                  'Кафе',
-                 'Японская кухня',
                  'Американская кухня',
                  'Европейская кухня',
                  'Итальянская кухня',
