@@ -68,7 +68,8 @@ class FoodService(Place):
 
     @property
     def layout_info(self):
-        return [self.about_service, self.contacts]
+        return [(('about', 'О ресторане'), self.about_service),
+                (('contacts', 'Контактная информация'), self.contacts)]
 
 
 @receiver(pre_save, sender=FoodService)

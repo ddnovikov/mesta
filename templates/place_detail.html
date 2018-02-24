@@ -41,28 +41,39 @@
           {% endif %}
         </div>
       </div>
+      <hr/>
       <div class="row">
         <div class="col">
           <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-              <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">О ресторане</a>
-              <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Контактная информация</a>
+              {% for tag, _ in instance.layout_info %}
+                <a class="nav-item nav-link {% if forloop.first %}active{% endif %}"
+                   id="nav-{{ tag.0 }}-tab"
+                   data-toggle="tab"
+                   href="#nav-{{ tag.0 }}"
+                   role="tab"
+                   aria-controls="nav-{{ tag.0 }}"
+                   aria-selected="{% if forloop.first %}true{% else %}false{% endif %}">{{ tag.1 }}</a>
+              {% endfor %}
             </div>
           </nav>
           <div class="tab-content" id="nav-tabContent">
-            {% for section in instance.layout_info %}
-            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-              <div class="tab-content">
-                {% for prop in section %}
-                <div class="row">
-                  <p class="col-sm-2 bold-field">{{ prop.0 }}</p>
-                  <div class="col-sm-10">
-                    <p>{{ prop.1 }}</p>
-                  </div>
+            {% for tag, section in instance.layout_info %}
+              <div class="tab-pane fade {% if forloop.first %}show active{% endif %}"
+                   id="nav-{{ tag.0 }}"
+                   role="tabpanel"
+                   aria-labelledby="nav-{{ tag.0 }}-tab">
+                <div class="tab-content-inner">
+                  {% for prop in section %}
+                    <div class="row">
+                      <p class="col-sm-2 bold-field">{{ prop.0 }}</p>
+                      <div class="col-sm-10">
+                        <p>{{ prop.1 }}</p>
+                      </div>
+                    </div>
+                  {% endfor %}
                 </div>
-                {% endfor %}
               </div>
-            </div>
             {% endfor %}
           </div>
 {#        <p>Владелец заведения: {{ instance.owner.get_full_name }}</p>#}
