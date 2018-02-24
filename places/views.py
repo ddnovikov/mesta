@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.paginator import Paginator
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
@@ -141,8 +142,14 @@ def place_detail(request, slug):
 def place_list(request):
     all_fss = FoodService.objects.all()
 
+    paginator = Paginator(all_fss, 9)
+
+    page = request.GET.get('page')
+    place_objects = paginator.get_page(page)
+
     context = {
-        'place_objects': all_fss,
+        'place_objects': place_objects,
+        'num_pages': range(1, place_objects.paginator.num_pages+1),
         'title': 'Каталог заведений'
     }
 

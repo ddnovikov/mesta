@@ -30,5 +30,31 @@
         </div></div><br/>
       {% endif %}
     {% endfor %}
+
+    <nav id="places-page-nav">
+      <ul class="pagination justify-content-center">
+        <li class="page-item {% if not place_objects.has_previous %}disabled{% endif %}">
+          <a class="page-link"
+             href="{% if place_objects.has_previous %}
+                     ?page={{ place_objects.previous_page_number }}
+                   {% endif %}"
+             tabindex="-1">Предыдущая</a>
+        </li>
+        {% for num in num_pages %}
+          <li class="page-item {% if place_objects.number == num %}active{% endif %}">
+            <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+          </li>
+        {% endfor %}
+
+        <li class="page-item {% if not place_objects.has_next %}disabled{% endif %}">
+
+          <a class="page-link"
+             href="{% if place_objects.has_next %}?page={{ place_objects.next_page_number }}{% endif %}">
+            Следующая
+          </a>
+        </li>
+      </ul>
+    </nav>
+    </div>
   </div>
 {% endblock %}
