@@ -17,12 +17,17 @@ class Image(models.Model):
     height_field = models.IntegerField(default=0)
     width_field = models.IntegerField(default=0)
     # Image or image url should be filled while creating Image object.
-    # image_url = models.URLField(blank=True, verbose_name='Ссылка на изображение')
+    # image_url = models.URLField(blank=True,
+    # verbose_name='Ссылка на изображение')
 
-    name = models.CharField(max_length=200, verbose_name='Название', blank=True)
-    description = models.TextField(verbose_name='Описание', blank=True)
+    name = models.CharField(max_length=200,
+                            blank=True,
+                            verbose_name='Название')
+    description = models.TextField(blank=True,
+                                   verbose_name='Описание')
 
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    content_type = models.ForeignKey(ContentType,
+                                     on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey()
 

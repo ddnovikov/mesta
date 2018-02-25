@@ -21,34 +21,67 @@ class PlaceManager(models.Manager):
 
 
 class Place(models.Model):
-    name = models.CharField(max_length=200, verbose_name='Название')
-    slug = models.SlugField(blank=True, unique=True, verbose_name='Slug')
-    short_description = models.CharField(max_length=200, blank=True, null=True, verbose_name='Короткое описание')
-    long_description = models.TextField(blank=True, verbose_name='Длинное описание')
-    draft = models.BooleanField(default=True, verbose_name='Черновик / Видимость объекта')
-    rating = models.FloatField(blank=True, null=True, verbose_name='Рейтинг')
-    tags = ArrayField(models.CharField(max_length=200), blank=True, verbose_name='Теги')
+    name = models.CharField(max_length=200,
+                            verbose_name='Название')
+    slug = models.SlugField(blank=True,
+                            unique=True,
+                            verbose_name='Slug')
+    short_description = models.CharField(max_length=200,
+                                         blank=True,
+                                         null=True,
+                                         verbose_name='Короткое описание')
+    long_description = models.TextField(blank=True,
+                                        verbose_name='Длинное описание')
+    draft = models.BooleanField(default=True,
+                                verbose_name='Черновик / Видимость объекта')
+    rating = models.FloatField(blank=True,
+                               null=True,
+                               verbose_name='Рейтинг')
+    tags = ArrayField(models.CharField(max_length=200),
+                      blank=True,
+                      verbose_name='Теги')
 
-    country = models.CharField(max_length=40, verbose_name='Страна')
-    region = models.CharField(max_length=200, verbose_name='Регион')
-    city = models.CharField(max_length=200, verbose_name='Город')
-    zip_code = models.CharField(max_length=10, blank=True, verbose_name='Почтовый индекс')
-    street = models.CharField(max_length=200, blank=True, verbose_name='Улица')
-    building_number = models.CharField(max_length=20, blank=True, verbose_name='Номер здания')
+    country = models.CharField(max_length=40,
+                               verbose_name='Страна')
+    region = models.CharField(max_length=200,
+                              verbose_name='Регион')
+    city = models.CharField(max_length=200,
+                            verbose_name='Город')
+    zip_code = models.CharField(max_length=10,
+                                blank=True,
+                                verbose_name='Почтовый индекс')
+    street = models.CharField(max_length=200,
+                              blank=True,
+                              verbose_name='Улица')
+    building_number = models.CharField(max_length=20,
+                                       blank=True,
+                                       verbose_name='Номер здания')
 
-    latitude = models.FloatField(blank=True, null=True, verbose_name='Широта')
-    longitude = models.FloatField(blank=True, null=True, verbose_name='Долгота')
+    latitude = models.FloatField(blank=True,
+                                 null=True,
+                                 verbose_name='Широта')
+    longitude = models.FloatField(blank=True,
+                                  null=True,
+                                  verbose_name='Долгота')
 
-    subway = ArrayField(models.CharField(max_length=200), blank=True, verbose_name='Ближайшие станции метро')
-    site = models.URLField(blank=True, verbose_name='Сайт')
+    subway = ArrayField(models.CharField(max_length=200),
+                        blank=True,
+                        verbose_name='Ближайшие станции метро')
+    site = models.URLField(blank=True,
+                           verbose_name='Сайт')
     telephone = PhoneNumberField(verbose_name='Телефон')
 
     owner = models.ForeignKey(settings.AUTH_USER_MODEL,
                               on_delete=models.CASCADE,
-                              verbose_name='Пользователь-владелец или представитель места')
+                              verbose_name='Пользователь-владелец '
+                                           'или представитель места')
 
-    timestamp = models.DateTimeField(auto_now=False, auto_now_add=True, verbose_name='Время создания')
-    updated = models.DateTimeField(auto_now=True, auto_now_add=False, verbose_name='Время последнего изменения')
+    timestamp = models.DateTimeField(auto_now=False,
+                                     auto_now_add=True,
+                                     verbose_name='Время создания')
+    updated = models.DateTimeField(auto_now=True,
+                                   auto_now_add=False,
+                                   verbose_name='Время последнего изменения')
 
     images = GenericRelation(Image, verbose_name='Прикреплённые изображения')
     files = GenericRelation(File, verbose_name='Прикреплённые файлы')
@@ -90,14 +123,16 @@ class Place(models.Model):
 
         for f in address_fields:
             cur_attr = getattr(self, f)
-            if cur_attr is not None and cur_attr not in {'Москва', 'Санкт-Петербург'}:
+            if cur_attr is not None and cur_attr not in {'Москва',
+                                                         'Санкт-Петербург'}:
                 res.append(cur_attr)
 
         return ', '.join(res)
 
     @property
     def contacts(self):
-        res = [('Адрес', self.full_address), ('Ближайшие станции метро', self.subway_as_string)]
+        res = [('Адрес', self.full_address),
+               ('Ближайшие станции метро', self.subway_as_string)]
         contacts_fields = [
             'site',
             'telephone',

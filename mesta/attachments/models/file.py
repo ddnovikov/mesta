@@ -10,10 +10,14 @@ def file_upload_location(instance, filename):
 class File(models.Model):
     file = models.FileField(upload_to=file_upload_location)
 
-    name = models.CharField(max_length=200, verbose_name='Название', blank=True)
-    description = models.TextField(verbose_name='Описание', blank=True)
+    name = models.CharField(max_length=200,
+                            blank=True,
+                            verbose_name='Название')
+    description = models.TextField(blank=True,
+                                   verbose_name='Описание')
 
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    content_type = models.ForeignKey(ContentType,
+                                     on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey()
 

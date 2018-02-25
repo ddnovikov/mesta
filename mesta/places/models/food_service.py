@@ -25,7 +25,10 @@ class FoodService(Place):
                                      blank=True,
                                      null=True,
                                      verbose_name='Тип заведения')
-    menu = models.FileField(upload_to=upload_location_menu, blank=True, null=True, verbose_name='Меню')
+    menu = models.FileField(upload_to=upload_location_menu,
+                            blank=True,
+                            null=True,
+                            verbose_name='Меню')
     parking = models.NullBooleanField(verbose_name='Парковка')
     bank_cards = models.NullBooleanField(verbose_name='Приём банковских карт')
     wi_fi = models.NullBooleanField(verbose_name='Вай-фай')
@@ -64,9 +67,11 @@ class FoodService(Place):
 
             if cur_attr is not None:
                 if isinstance(cur_attr, bool):
-                    res.append((self._meta.get_field(p).verbose_name, bools[cur_attr]))
+                    res.append((self._meta.get_field(p).verbose_name,
+                                bools[cur_attr]))
                 else:
-                    res.append((self._meta.get_field(p).verbose_name, cur_attr))
+                    res.append((self._meta.get_field(p).verbose_name,
+                                cur_attr))
 
         res.append(('Теги', self.tags_as_string))
 

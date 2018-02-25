@@ -10,7 +10,9 @@ register = template.Library()
 def field_type(field):
     field_t = field.field
 
-    if isinstance(field_t, fields.CharField) or isinstance(field_t, fields.FloatField):
+    if isinstance(field_t, fields.CharField) or \
+       isinstance(field_t, fields.FloatField):
+
         if not isinstance(field_t.widget, widgets.Textarea):
             return 'std'
         else:
@@ -19,7 +21,9 @@ def field_type(field):
     elif isinstance(field_t, fields.NullBooleanField):
         return 'null-bool'
 
-    elif isinstance(field_t, fields.TypedChoiceField) or isinstance(field_t, models.ModelChoiceField):
+    elif isinstance(field_t, fields.TypedChoiceField) or \
+         isinstance(field_t, models.ModelChoiceField):
+
         return 'typed-choice'
 
 

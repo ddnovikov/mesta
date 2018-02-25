@@ -4,8 +4,12 @@ from ..models import Place
 
 
 class PlaceForm(forms.ModelForm):
-    short_description = forms.CharField(label='Короткое описание', required=False, widget=forms.Textarea)
-    long_description = forms.CharField(label='Длинное описание', required=False, widget=forms.Textarea)
+    short_description = forms.CharField(label='Короткое описание',
+                                        required=False,
+                                        widget=forms.Textarea)
+    long_description = forms.CharField(label='Длинное описание',
+                                       required=False,
+                                       widget=forms.Textarea)
 
     class Meta:
         model = Place

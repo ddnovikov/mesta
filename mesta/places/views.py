@@ -7,7 +7,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 from mesta.attachments.forms import ImageForm
 from mesta.attachments.models import Image
-from mesta.helpers_and_misc.tools import chain_search
+from mesta.helpers_and_misc.tools.chain_search import chain_search
 
 from .documents import FoodServiceDocument
 from .forms import PlaceForm, FoodServiceForm
@@ -64,10 +64,12 @@ def place_create(request, place_base_type='place'):
         if image_form.is_valid() and request.FILES:
             image = image_form.cleaned_data['image']
             try:
-                image_instance = Image(image=image, content_object=place_instance)
+                image_instance = Image(image=image,
+                                       content_object=place_instance)
             except ObjectDoesNotExist:
-                return HttpResponse('Неверный запрос. Нельзя сохранить изображение, '
-                                    'не связав его с объектом.', status=500)
+                return HttpResponse('Неверный запрос. Нельзя сохранить '
+                                    'изображение, не связав его с объектом.',
+                                    status=500)
             image_instance.save()
 
         messages.success(request, 'Место успешно создано.')
@@ -76,7 +78,9 @@ def place_create(request, place_base_type='place'):
     context = {
         'main_form': form,
         'image_form': image_form,
-        'null_bool_values': {1: ['Неизвестно', None], 2: ['Да', True], 3: ['Нет', False]},
+        'null_bool_values': {1: ['Неизвестно', None],
+                             2: ['Да', True],
+                             3: ['Нет', False]},
         'title': 'Создать место',
         'submit_value': 'Создать место',
     }
@@ -108,10 +112,12 @@ def place_update(request, slug):
             image = image_form.cleaned_data['image']
             instance.images.all().delete()
             try:
-                image_instance = Image(image=image, content_object=place_instance)
+                image_instance = Image(image=image,
+                                       content_object=place_instance)
             except ObjectDoesNotExist:
-                return HttpResponse('Неверный запрос. Нельзя сохранить изображение, '
-                                    'не связав его с объектом.', status=500)
+                return HttpResponse('Неверный запрос. Нельзя сохранить '
+                                    'изображение, не связав его с объектом.',
+                                    status=500)
             image_instance.save()
 
         messages.success(request, 'Место успешно создано.')
@@ -120,7 +126,9 @@ def place_update(request, slug):
     context = {
         'main_form': form,
         'image_form': image_form,
-        'null_bool_values': {1: ['Неизвестно', None], 2: ['Да', True], 3: ['Нет', False]},
+        'null_bool_values': {1: ['Неизвестно', None],
+                             2: ['Да', True],
+                             3: ['Нет', False]},
         'title': f'Изменить место "{instance.name}"',
         'submit_value': 'Сохранить изменения',
     }
@@ -177,7 +185,8 @@ def place_search(request):
     search_query = request.GET.get('q')
 
     if search_query:
-        search_results = chain_search({'name': search_query}, FoodServiceDocument.search())
+        search_results = chain_search({'name': search_query},
+                                      FoodServiceDocument.search())
         search_results = search_results.to_queryset()
     else:
         return HttpResponse('Задан пустой поисковый запрос.')

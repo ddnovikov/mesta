@@ -59,7 +59,9 @@ def post_list(request):
 @login_required
 def post_update(request, slug=None):
     instance = get_object_or_404(Post, slug=slug)
-    form = PostForm(request.POST or None, request.FILES or None, instance=instance)
+    form = PostForm(request.POST or None,
+                    request.FILES or None,
+                    instance=instance)
 
     if form.is_valid():
         instance = form.save(commit=False)

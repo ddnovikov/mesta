@@ -25,7 +25,9 @@ class PlaceDocument(DocType):
         ]
 
     def __repr__(self):
-        return f'PlaceDocument(name={self.name}, tags={self.tags}, city={self.city})'
+        return f'PlaceDocument(name={self.name}, ' \
+               f'tags={self.tags}, ' \
+               f'city={self.city})'
 
 
 '''
@@ -37,15 +39,16 @@ class PlaceDocument(DocType):
     because DED's structure does not support normal django-style
     model inheritance (and class Meta inheritance too) like Django does.
      
-    About class Meta. On one hand, its behaviour is really OK: Django works the same in this
-    case - Meta can be inherited only from abstract base classes. 
-    But on the other hand, Meta in Django and in DED are very
-    different, and it may be very useful to make Meta inheritable.
+    About class Meta. On one hand, its behaviour is really OK: Django 
+    works the same in this case - Meta can be inherited only from 
+    abstract base classes. But on the other hand, Meta in Django and 
+    in DED are very different, and it may be very useful to make Meta 
+    inheritable.
     
     Also, I found out that class Meta inheritance can be fixed really
-    easy with just assigning Meta property to appropriate class (DED's DocTypeMeta,
-    defined in documents.py). But the huge problem here is, that implementation of
-    Django-like behaviour in models is quite hard task.
+    easy with just assigning Meta property to appropriate class (DED's 
+    DocTypeMeta, defined in documents.py). But the huge problem here is,
+    that implementation of Django-like behaviour in models is quite hard task.
 '''
 
 
@@ -74,4 +77,6 @@ class FoodServiceDocument(DocType):
         ]
 
     def __repr__(self):
-        return f'FoodServiceDocument(name={self.name}, tags={self.tags}, city={self.city})'
+        return f'FoodServiceDocument(name={self.name}, ' \
+               f'tags={self.tags}, ' \
+               f'city={self.city})'
