@@ -6,22 +6,38 @@ from mesta.helpers_and_misc.tools.slugs import create_slug
 
 from .place import Place
 
+RESTAURANT = 1
+CAFE = 2
+COFFEE_HOUSE = 3
+FAST_FOOD = 4
+BAR = 5
+WINEHOUSE = 6
+BAKERY = 7
+CONFECTIONARY = 8
+GASTROPUB = 9
+TEA_HOUSE = 10
+
+PLACE_TYPE_CHOICES = [
+    (RESTAURANT, 'Ресторан'),
+    (CAFE, 'Кафе'),
+    (COFFEE_HOUSE, 'Кофейня'),
+    (FAST_FOOD, 'Фаст-фуд'),
+    (BAR, 'Бар'),
+    (WINEHOUSE, 'Винотека'),
+    (BAKERY, 'Пекарня'),
+    (CONFECTIONARY, 'Кондитерская'),
+    (GASTROPUB, 'Гастропаб'),
+    (TEA_HOUSE, 'Чайная'),
+]
+
+PLACE_TYPE_CHOICES_DICT = dict(PLACE_TYPE_CHOICES)
 
 def upload_location_menu(instance, filename):
     return f'menus/{instance.id}_{filename}'
 
 
 class FoodService(Place):
-    place_type = models.IntegerField(choices=[(1, "Ресторан"),
-                                              (2, "Кафе"),
-                                              (3, "Кофейня"),
-                                              (4, "Фаст-фуд"),
-                                              (5, "Бар"),
-                                              (6, "Винотека"),
-                                              (7, "Пекарня"),
-                                              (8, "Кондитерская"),
-                                              (9, "Гастропаб"),
-                                              (10, "Чайная")],
+    place_type = models.IntegerField(choices=PLACE_TYPE_CHOICES,
                                      blank=True,
                                      null=True,
                                      verbose_name='Тип заведения')
@@ -70,6 +86,9 @@ class FoodService(Place):
                 if isinstance(cur_attr, bool):
                     res.append((self._meta.get_field(p).verbose_name,
                                 bools[cur_attr]))
+                elif isinstance(cur_attr, int):
+                    res.append((self._meta.get_field(p).verbose_name,
+                                PLACE_TYPE_CHOICES_DICT[cur_attr]))
                 else:
                     res.append((self._meta.get_field(p).verbose_name,
                                 cur_attr))
