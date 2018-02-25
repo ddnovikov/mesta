@@ -41,7 +41,7 @@ class PlaceDocument(DocType):
      
     About class Meta. On one hand, its behaviour is really OK: Django 
     works the same in this case - Meta can be inherited only from 
-    abstract base classes. But on the other hand, Meta in Django and 
+    abstract base.txt classes. But on the other hand, Meta in Django and 
     in DED are very different, and it may be very useful to make Meta 
     inheritable.
     

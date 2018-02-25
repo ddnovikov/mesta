@@ -38,6 +38,7 @@ class FoodService(Place):
 
     class Meta:
         db_table = "foodservices"
+        ordering = ['-id']
         verbose_name = "Заведение общественного питания"
         verbose_name_plural = "Заведения общественного питания"
 

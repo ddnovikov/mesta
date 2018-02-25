@@ -152,7 +152,6 @@ def place_list(request):
     all_fss = FoodService.objects.all()
 
     paginator = Paginator(all_fss, 9)
-
     page = request.GET.get('page')
     place_objects = paginator.get_page(page)
 
