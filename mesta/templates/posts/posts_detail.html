@@ -38,7 +38,7 @@
               <img class="img-fluid rounded img-d" src="{{ instance.image.url }}">
             {% endif %}
           </div>
-          <p>{{ instance.content }}</p>
+          <p>{{ instance.content | safe }}</p>
         </div>
       </div>
       <p class="owner">Автор: {{ instance.user }}</p>

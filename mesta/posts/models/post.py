@@ -83,6 +83,10 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse('blogs:detail', kwargs={'slug': self.slug})
 
+    @property
+    def tags_as_string(self):
+        return ', '.join(self.tags)
+
 
 @receiver(pre_save, sender=Post)
 def pre_save_post_reciever(sender, instance, **kwargs):

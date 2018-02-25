@@ -1,15 +1,17 @@
 from elasticsearch_dsl import Q
 
 
-def chain_search(query,
-                 search_obj,
-                 query_type='match',
+def chain_search(search_obj,
+                 query=None,
+                 query_type_or_q='match',
                  source_kwargs=None,
                  sort_args=None,
                  sub_searching_attr='',
                  sub_query=None,
                  init_res_num=300):
 
+    if query is None:
+        query = {}
     if sort_args is None:
         sort_args = {}
     if source_kwargs is None:
@@ -17,7 +19,7 @@ def chain_search(query,
     if sub_query is None:
         sub_query = {}
 
-    main_search = search_obj.query(query_type, **query). \
+    main_search = search_obj.query(query_type_or_q, **query). \
                              source(**source_kwargs). \
                              sort(sort_args)
 
@@ -37,7 +39,7 @@ def chain_search(query,
             if cur_sub_query:
                 sub_search_res += chain_search(query=cur_sub_query,
                                                search_obj=search_obj,
-                                               query_type='constant_score',
+                                               query_type_or_q='constant_score',
                                                init_res_num=None)
 
         return sub_search_res

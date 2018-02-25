@@ -52,12 +52,16 @@
       </div>
     </nav>
 
-    {% block content %}
-    {% endblock content %}
+    <div class="content-base">
+      {% block content %}
+      {% endblock content %}
+    </div>
 
-    <footer class="py-5">
-      <div class="container">
-        <p class="m-0 text-center text-white">&copy; Места 2018</p>
+    <footer class="footer py-5 w-100">
+      <div class="container center">
+        <div class="row justify-content-center">
+          <p class="js-scroll-trigger text-white">&copy; Места 2018</p>
+        </div>
       </div>
     </footer>
 
@@ -73,16 +77,16 @@
           <div class="modal-body">
             <form>
               <div class="form-group">
-                <label for="login">Логин</label>
-                <input id="login" type="text" class="form-control">
+                <label for="login-r">Логин</label>
+                <input id="login-r" type="text" class="form-control">
               </div>
               <div class="form-group">
                 <label for="email">Электронная почта</label>
                 <input id="text" type="text" class="form-control">
               </div>
               <div class="form-group">
-                <label for="pwd">Пароль</label>
-                <input id="pwd" type="password" class="form-control">
+                <label for="pwd-r">Пароль</label>
+                <input id="pwd-r" type="password" class="form-control">
               </div>
               <div class="form-group">
                 <label for="pwd-c">Повторите пароль</label>

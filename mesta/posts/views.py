@@ -1,9 +1,14 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.paginator import Paginator
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 
+from elasticsearch_dsl import Q
+
+from mesta.helpers_and_misc.tools.chain_search import chain_search
+
+from .documents import PostDocument
 from .forms import PostForm
 from .models import Post
 
@@ -40,9 +45,8 @@ def post_detail(request, slug=None):
 
 def post_list(request):
     all_posts_qs = Post.objects.all()
-    search_query = request.GET.get('q')
 
-    paginator = Paginator(all_posts_qs, 15)
+    paginator = Paginator(all_posts_qs, 10)
 
     page = request.GET.get('page')
     posts = paginator.get_page(page)
@@ -54,6 +58,28 @@ def post_list(request):
     }
 
     return render(request, 'posts_list.html', context)
+
+
+def post_search(request):
+    search_query = request.GET.get('q')
+
+    if search_query:
+        search_results = chain_search(
+            query_type_or_q=Q({"multi_match": {"query": search_query,
+                                               "fields": ["title", "content", "tags"]}}),
+            search_obj=PostDocument.search()
+        )
+        search_results = search_results.to_queryset()
+        print(search_results)
+    else:
+        return HttpResponse('Задан пустой поисковый запрос.')
+
+    context = {
+        'object_list': search_results,
+        'title': f'Результаты поиска по запросу "{search_query}"',
+    }
+
+    return render(request, 'posts_list.html', context=context)
 
 
 @login_required

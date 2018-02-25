@@ -1,6 +1,5 @@
 body {
     font-family: 'Rubik', sans-serif;
-    margin: 0;
 }
 
 h1 {
@@ -71,6 +70,12 @@ nav, footer {
   background-size: cover;
 }
 
+.content-base {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
 .dark-overlay {
     position: absolute;
     width: 100%;
@@ -79,16 +84,6 @@ nav, footer {
     left: 0;
     background-color: rgba(0, 0, 0, 0.7);
     opacity: 0.7;
-}
-
-.footer {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100px; /* Set the fixed height of the footer here */
-    line-height: 100px; /* Vertically center the text there */
 }
 
 .image-pos {
