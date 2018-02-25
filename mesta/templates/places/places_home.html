@@ -38,13 +38,11 @@
 
   <section class="py-5">
     <div class="container">
-      <form action="{% url 'places:search' %}" method="get">
+      <form action="{% url 'places:search' %}" name="q" method="GET">
         <div class="input-group mb-3">
           <input type="text" class="form-control" name="q" placeholder="Введите название места" aria-label="place-name" aria-describedby="basic-addon2">
           <div class="input-group-append">
-            <a href="{% url 'places:search' %}"
-               type="button"
-               class="btn btn-outline-primary">Найти</a>
+            <button type="submit" class="btn btn-outline-primary">Найти</button>
           </div>
         </div>
       </form>

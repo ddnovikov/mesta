@@ -5,6 +5,8 @@ from django.core.paginator import Paginator
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
+from elasticsearch_dsl import Q
+
 from mesta.attachments.forms import ImageForm
 from mesta.attachments.models import Image
 from mesta.helpers_and_misc.tools.chain_search import chain_search
@@ -184,8 +186,14 @@ def place_search(request):
     search_query = request.GET.get('q')
 
     if search_query:
-        search_results = chain_search({'name': search_query},
-                                      FoodServiceDocument.search())
+        search_results = chain_search(
+            query_type_or_q=Q({"multi_match": {"query": search_query,
+                                               "fields": ["name",
+                                                          "short_description",
+                                                          "long_description",
+                                                          "tags"]}}),
+            search_obj=FoodServiceDocument.search()
+        )
         search_results = search_results.to_queryset()
     else:
         return HttpResponse('Задан пустой поисковый запрос.')
