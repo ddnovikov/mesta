@@ -7,10 +7,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 from attachments.models import Image
 from attachments.forms import ImageForm
-from places.models import Place, FoodService
-from places.forms import PlaceForm, FoodServiceForm
-from places.documents import FoodServiceDocument
 from misc.tools.chain_search import chain_search
+
+from .models import Place, FoodService
+from .forms import PlaceForm, FoodServiceForm
+from .documents import FoodServiceDocument
 
 
 def places_home(request):

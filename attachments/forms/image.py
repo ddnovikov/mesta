@@ -1,6 +1,6 @@
 from django import forms
 
-from attachments.models import Image
+from ..models import Image
 
 
 class ImageForm(forms.ModelForm):

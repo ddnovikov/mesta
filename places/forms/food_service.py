@@ -1,5 +1,5 @@
-from places.models import FoodService
-from places.forms import PlaceForm
+from ..models import FoodService
+from ..forms import PlaceForm
 
 
 class FoodServiceForm(PlaceForm):

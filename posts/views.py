@@ -4,8 +4,8 @@ from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 
-from posts.forms import PostForm
-from posts.models import Post
+from .forms import PostForm
+from .models import Post
 
 
 @login_required
