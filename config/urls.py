@@ -16,7 +16,8 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, re_path, include
+from django.views.generic.base import RedirectView
 
 from mesta.helpers_and_misc import urls as misc_urls
 from mesta.places import urls as places_urls
@@ -28,6 +29,7 @@ urlpatterns = [
     path('about/', include(misc_urls, namespace='about')),
     path('places/', include(places_urls, namespace='places')),
     path('blogs/', include(blogs_urls, namespace='blogs')),
+    path('', RedirectView.as_view(pattern_name='places:home', permanent=True)),
 ]
 
 if settings.DEBUG:
