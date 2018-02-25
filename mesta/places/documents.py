@@ -1,5 +1,6 @@
 from django_elasticsearch_dsl import DocType, Index, fields
-from places.models import Place, FoodService
+
+from .models import Place, FoodService
 
 places = Index('places')
 food_services = Index('food_services')

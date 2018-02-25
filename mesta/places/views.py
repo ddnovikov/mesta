@@ -5,13 +5,13 @@ from django.core.paginator import Paginator
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
-from attachments.models import Image
-from attachments.forms import ImageForm
-from misc.tools.chain_search import chain_search
+from mesta.attachments.forms import ImageForm
+from mesta.attachments.models import Image
+from mesta.helpers_and_misc.tools import chain_search
 
-from .models import Place, FoodService
-from .forms import PlaceForm, FoodServiceForm
 from .documents import FoodServiceDocument
+from .forms import PlaceForm, FoodServiceForm
+from .models import Place, FoodService
 
 
 def places_home(request):

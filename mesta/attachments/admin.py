@@ -1,5 +1,6 @@
 from django.contrib import admin
-from attachments.models import Image, File
+
+from .models import Image, File
 
 
 class ImageAdmin(admin.ModelAdmin):

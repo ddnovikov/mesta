@@ -6,9 +6,9 @@ from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from django.urls import reverse
 
-from attachments.models import Image, File
-from places.models import Place
-from misc.tools.slugs import create_slug
+from mesta.attachments.models import Image, File
+from mesta.helpers_and_misc.tools.slugs import create_slug
+from mesta.places.models import Place
 
 
 def post_upload_location(instance, filename):

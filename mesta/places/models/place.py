@@ -8,8 +8,8 @@ from django.dispatch import receiver
 from django.urls import reverse
 from phonenumber_field.modelfields import PhoneNumberField
 
-from attachments.models import Image, File
-from misc.tools.slugs import create_slug
+from mesta.attachments.models import Image, File
+from mesta.helpers_and_misc.tools.slugs import create_slug
 
 
 class PlaceManager(models.Manager):

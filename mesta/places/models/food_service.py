@@ -2,7 +2,8 @@ from django.db import models
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
 
-from misc.tools.slugs import create_slug
+from mesta.helpers_and_misc.tools.slugs import create_slug
+
 from .place import Place
 
 

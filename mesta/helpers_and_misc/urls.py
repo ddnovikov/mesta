@@ -1,6 +1,6 @@
 from django.urls import path
 
-from misc import views
+from . import views
 
 app_name = 'about'
 

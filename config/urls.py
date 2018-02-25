@@ -14,13 +14,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.conf import settings
-from django.contrib import admin
 from django.conf.urls.static import static
+from django.contrib import admin
 from django.urls import path, include
 
-from places import urls as places_urls
-from posts import urls as blogs_urls
-from misc import urls as misc_urls
+from mesta.helpers_and_misc import urls as misc_urls
+from mesta.places import urls as places_urls
+from mesta.posts import urls as blogs_urls
 
 
 urlpatterns = [

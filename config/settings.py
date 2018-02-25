@@ -38,11 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'attachments',
-    'comments',
-    'places',
-    'posts',
-    'misc',
+    'mesta.attachments',
+    'mesta.comments',
+    'mesta.places',
+    'mesta.posts',
+    'mesta.helpers_and_misc',
 
     'crispy_forms',
     'django_elasticsearch_dsl',
@@ -60,15 +60,15 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'mesta.urls'
+ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates'),
-                 os.path.join(BASE_DIR, 'templates/places'),
-                 os.path.join(BASE_DIR, 'templates/posts'),
-                 os.path.join(BASE_DIR, 'templates/shared')],
+        'DIRS': [os.path.join(BASE_DIR, 'mesta/templates'),
+                 os.path.join(BASE_DIR, 'mesta/templates/places'),
+                 os.path.join(BASE_DIR, 'mesta/templates/posts'),
+                 os.path.join(BASE_DIR, 'mesta/templates/shared')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -81,7 +81,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'mesta.wsgi.application'
+WSGI_APPLICATION = 'config.wsgi.application'
 
 
 # Database
@@ -142,14 +142,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static_cdn')
+STATIC_ROOT = os.path.join(BASE_DIR, 'mesta', 'static_cdn')
 
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'mesta/static'),
 ]
 
 MEDIA_URL = '/media/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media_cdn')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'mesta', 'media_cdn')
