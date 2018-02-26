@@ -15,7 +15,7 @@
         {% for obj, image in carousel %}
           <div class="carousel-item {% if forloop.first %}active{% endif %}">
           <a href="{{ obj.get_absolute_url }}">
-            <img class="d-block w-100 image-pos" src="{{ image.url }}">
+            <img class="image-fluid d-block w-100 image-pos" src="{{ image.url }}">
               <div class="dark-overlay"></div>
               <div class="carousel-caption d-none d-md-block">
                 <h1 class="slide-caption-main">{{ obj }}</h1>
