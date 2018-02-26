@@ -1,9 +1,11 @@
 import os
+import django
 
 from pathlib import Path
 
 from django.core.exceptions import ImproperlyConfigured
 
+django.setup()
 
 def get_env_variable(var_name):
     try:
