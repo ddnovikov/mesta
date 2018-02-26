@@ -1,1 +1,1 @@
-web: gunicorn mesta-project:app
+web: gunicorn config.wsgi
