@@ -20,5 +20,8 @@ ELASTICSEARCH_DSL = {
     },
 }
 
+STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+
 MEDIA_ROOT = BASE_DIR / 'mesta' / 'media_cdn'
 STATIC_ROOT = BASE_DIR / 'mesta' / 'static_cdn'

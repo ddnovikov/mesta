@@ -12,6 +12,7 @@ def get_env_variable(var_name):
         error_msg = 'Set the {} environment variable'.format(var_name)
         raise ImproperlyConfigured(error_msg)
 
+
 SECRET_KEY = get_env_variable('MESTA_SECRET_KEY')
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -96,11 +97,7 @@ USE_L10N = True
 USE_TZ = True
 
 
-# STATIC_URL = '/static/'
-
-# STATICFILES_DIRS = [BASE_DIR / 'mesta' / 'static']
-
-# MEDIA_URL = '/media/'
+STATICFILES_DIRS = [BASE_DIR / 'mesta' / 'static']
 
 
 CORS_REPLACE_HTTPS_REFERER = False

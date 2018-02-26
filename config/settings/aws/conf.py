@@ -1,29 +1,23 @@
 from ..base import get_env_variable
 
-import datetime
 
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 AWS_ACCESS_KEY_ID = get_env_variable('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = get_env_variable('AWS_SECRET_ACCESS_KEY')
-AWS_FILE_EXPIRE = 200
-AWS_PRELOAD_METADATA = True
-AWS_QUERYSTRING_AUTH = True
-
-DEFAULT_FILE_STORAGE = 'config.settings.aws.utils.MediaRootS3BotoStorage'
-STATICFILES_STORAGE = 'config.settings.aws.utils.StaticRootS3BotoStorage'
 AWS_STORAGE_BUCKET_NAME = get_env_variable('AWS_STORAGE_BUCKET_NAME')
-S3DIRECT_REGION = 'us-west-2'
-S3_URL = f'//{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/'
-MEDIA_URL = f'//{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/media/'
-MEDIA_ROOT = MEDIA_URL
-STATIC_URL = S3_URL + 'static/'
+AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
+AWS_QUERYSTRING_AUTH = False
+
+AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+
+STATIC_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+MEDIA_URL = STATIC_URL + 'media/'
+STATIC_ROOT = 'static'
 ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 
-two_months = datetime.timedelta(days=61)
-date_two_months_later = datetime.date.today() + two_months
-expires = date_two_months_later.strftime("%A, %d %B %Y 20:00:00 GMT")
-
-AWS_HEADERS = {
-    'Expires': expires,
-    'Cache-Control': f'max-age={int(two_months.total_seconds())}',
-}
+STATICFILES_FINDERS = (
+'django.contrib.staticfiles.finders.FileSystemFinder',
+'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+)
