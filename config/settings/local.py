@@ -20,7 +20,5 @@ ELASTICSEARCH_DSL = {
     },
 }
 
-SECRET_KEY = get_env_variable('MESTA_SECRET_KEY')
-
 MEDIA_ROOT = BASE_DIR / 'mesta' / 'media_cdn'
 STATIC_ROOT = BASE_DIR / 'mesta' / 'static_cdn'
