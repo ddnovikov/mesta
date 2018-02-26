@@ -24,6 +24,12 @@ DATABASES = {
     'default': db_from_env
 }
 
+ELASTICSEARCH_DSL = {
+    'default': {
+        'hosts': get_env_variable('BONSAI_URL')
+    },
+}
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
