@@ -30,3 +30,19 @@ DATABASES = {
 
 MEDIA_ROOT = BASE_DIR / 'mesta' / 'media_cdn'
 STATIC_ROOT = BASE_DIR / 'mesta' / 'static_cdn'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'ERROR'),
+        },
+    },
+}
