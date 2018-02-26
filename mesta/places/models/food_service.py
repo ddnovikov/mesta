@@ -6,6 +6,7 @@ from mesta.helpers_and_misc.tools.slugs import create_slug
 
 from .place import Place
 
+
 RESTAURANT = 1
 CAFE = 2
 COFFEE_HOUSE = 3
@@ -31,6 +32,7 @@ PLACE_TYPE_CHOICES = [
 ]
 
 PLACE_TYPE_CHOICES_DICT = dict(PLACE_TYPE_CHOICES)
+
 
 def upload_location_menu(instance, filename):
     return f'menus/{instance.id}_{filename}'
