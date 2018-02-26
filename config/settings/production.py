@@ -28,8 +28,8 @@ DATABASES = {
     'default': db_from_env
 }
 
-MEDIA_ROOT = BASE_DIR / 'mesta' / 'media_cdn'
-STATIC_ROOT = BASE_DIR / 'mesta' / 'static_cdn'
+# MEDIA_ROOT = BASE_DIR / 'mesta' / 'media_cdn'
+# STATIC_ROOT = BASE_DIR / 'mesta' / 'static_cdn'
 
 LOGGING = {
     'version': 1,

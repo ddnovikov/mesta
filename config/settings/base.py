@@ -96,11 +96,11 @@ USE_L10N = True
 USE_TZ = True
 
 
-STATIC_URL = '/static/'
+# STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [BASE_DIR / 'mesta' / 'static']
+# STATICFILES_DIRS = [BASE_DIR / 'mesta' / 'static']
 
-MEDIA_URL = '/media/'
+# MEDIA_URL = '/media/'
 
 
 CORS_REPLACE_HTTPS_REFERER = False
