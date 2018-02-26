@@ -1,11 +1,9 @@
 import os
-import django
 
 from pathlib import Path
 
 from django.core.exceptions import ImproperlyConfigured
 
-django.setup()
 
 def get_env_variable(var_name):
     try:
@@ -56,10 +54,6 @@ TEMPLATES = [
                  BASE_DIR / 'mesta' / 'templates' / 'places',
                  BASE_DIR / 'mesta' / 'templates' / 'posts',
                  BASE_DIR / 'mesta' / 'templates' / 'shared',
-                 # os.path.join(BASE_DIR, 'mesta/templates'),
-                 # os.path.join(BASE_DIR, 'mesta/templates/places'),
-                 # os.path.join(BASE_DIR, 'mesta/templates/posts'),
-                 # os.path.join(BASE_DIR, 'mesta/templates/shared')
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -102,15 +96,13 @@ USE_L10N = True
 USE_TZ = True
 
 
-STATIC_ROOT = BASE_DIR / 'mesta' / 'static_cdn'
-
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [BASE_DIR / 'mesta' / 'static']
 
 MEDIA_URL = '/media/'
 
-MEDIA_ROOT = BASE_DIR / 'mesta' / 'media_cdn'
+
 
 CORS_REPLACE_HTTPS_REFERER = False
 HOST_SCHEME = "http://"

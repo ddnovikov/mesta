@@ -13,18 +13,22 @@ CSRF_COOKIE_SECURE = True
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_SECONDS = 1000000
 SECURE_FRAME_DENY = True
-
 ALLOWED_HOSTS =  ['mesta-project.herokuapp.com']
+
+
+MIDDLEWARE_CLASSES = (
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+)
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+db_from_env = dj_database_url.config(conn_max_age=500)
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'mesta',
-        'USER': 'mesta_app',
-        'PASSWORD': get_env_variable('MESTA_DB_PWD'),
-        'HOST': 'localhost',
-        'PORT': '5432',
+        db_from_env
     }
 }
 
-db_from_env = dj_database_url.config()
-DATABASES['default'].update(db_from_env)
+MEDIA_ROOT = BASE_DIR / 'mesta' / 'media_cdn'
+STATIC_ROOT = BASE_DIR / 'mesta' / 'static_cdn'
