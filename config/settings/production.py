@@ -25,9 +25,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 db_from_env = dj_database_url.config(conn_max_age=500)
 
 DATABASES = {
-    'default': {
-        db_from_env
-    }
+    'default': db_from_env
 }
 
 MEDIA_ROOT = BASE_DIR / 'mesta' / 'media_cdn'
