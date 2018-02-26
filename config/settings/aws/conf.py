@@ -9,15 +9,14 @@ AWS_FILE_EXPIRE = 200
 AWS_PRELOAD_METADATA = True
 AWS_QUERYSTRING_AUTH = True
 
-DEFAULT_FILE_STORAGE = 'config.aws.utils.MediaRootS3BotoStorage'
-STATICFILES_STORAGE = 'config.aws.utils.StaticRootS3BotoStorage'
+DEFAULT_FILE_STORAGE = 'config.settings.aws.utils.MediaRootS3BotoStorage'
+STATICFILES_STORAGE = 'config.settings.aws.utils.StaticRootS3BotoStorage'
 AWS_STORAGE_BUCKET_NAME = get_env_variable('AWS_STORAGE_BUCKET_NAME')
 S3DIRECT_REGION = 'us-west-2'
 S3_URL = f'//{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/'
 MEDIA_URL = f'//{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/media/'
 MEDIA_ROOT = MEDIA_URL
 STATIC_URL = S3_URL + 'static/'
-STATIC_ROOT = STATIC_URL
 ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 
 two_months = datetime.timedelta(days=61)
