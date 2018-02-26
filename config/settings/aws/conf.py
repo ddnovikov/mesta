@@ -12,9 +12,9 @@ AWS_QUERYSTRING_AUTH = False
 
 AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
 
-STATIC_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+STATIC_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/'
 MEDIA_URL = STATIC_URL + 'media/'
-STATIC_ROOT = 'static'
+STATIC_ROOT = 'static/'
 ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 
 STATICFILES_FINDERS = (
