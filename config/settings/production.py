@@ -26,7 +26,7 @@ DATABASES = {
 
 ELASTICSEARCH_DSL = {
     'default': {
-        'hosts': get_env_variable('BONSAI_URL')
+        'hosts': get_env_variable('SEARCHBOX_URL')
     },
 }
 
