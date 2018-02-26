@@ -31,7 +31,7 @@ INSTALLED_APPS = [
     'mesta.posts',
     'mesta.helpers_and_misc',
 
-    # 'django_elasticsearch_dsl',
+    'django_elasticsearch_dsl',
     'phonenumber_field',
 ]
 
