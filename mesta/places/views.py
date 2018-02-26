@@ -5,6 +5,8 @@ from django.core.paginator import Paginator
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
+import certifi
+from elasticsearch import Elasticsearch
 from elasticsearch_dsl import Q
 
 from mesta.attachments.forms import ImageForm
@@ -192,7 +194,8 @@ def place_search(request):
                                                           "short_description",
                                                           "long_description",
                                                           "tags"]}}),
-            search_obj=FoodServiceDocument.search()
+            search_obj=FoodServiceDocument.search(using=Elasticsearch(use_ssl=True,
+                                                                      ca_certs=certifi.where()))
         )
         search_results = search_results.to_queryset()
     else:
