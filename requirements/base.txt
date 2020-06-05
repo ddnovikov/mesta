@@ -1,6 +1,6 @@
 Babel==2.5.3
 decorator==4.2.1
-Django==2.0.2
+Django==2.2.13
 django-appconf==1.0.2
 django-elasticsearch-dsl==0.4.4
 django-phonenumber-field==2.0.0
